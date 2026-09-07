@@ -1,25 +1,17 @@
-import type { Slide } from "../types/slide.js";
-import type { Presentation } from "../types/presentation.js";
-import  { generateId } from "../functions/common.js";
+import type { Slide } from "../types/slide";
+import type { Presentation } from "../types/presentation";
+import  { generateId } from "../functions/common";
 
-
-function addSlide(presentation: Presentation, slideName?: string): Presentation {
+function addSlide(presentation: Presentation): Presentation {
     const slide: Slide = {
         id: generateId(),
-        name: slideName || 'New slide',
     };
 
     let slides: Slide[]
-    if (presentation.slides) {
-        slides = [...(presentation.slides), slide]
-    }
-    else {
-        slides = [slide]
-    }
+    slides = [...(presentation.slides), slide]
 
     return {
         ...presentation,
         slides,
     }
-
 }

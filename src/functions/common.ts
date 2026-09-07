@@ -1,15 +1,15 @@
-const CNFG = {
-    ID: {
-        NUMBER_DIVERSITY: 36,
-        BEGIN_POS: 2,
-        END_POS: 8,
+const Config = { 
+    id: {
+        numberDiversity: 36,
+        beginPos: 2,
+        endPos: 8,
     },
 }
 
 function generateId(): string {
-    const timestamp = Date.now().toString(CNFG.ID.NUMBER_DIVERSITY)
+    const timestamp = Date.now().toString(Config.id.numberDiversity)
     const randomPart = Math.random().toString(
-        CNFG.ID.NUMBER_DIVERSITY).substring(CNFG.ID.BEGIN_POS, CNFG.ID.END_POS)
+        Config.id.numberDiversity).substring(Config.id.beginPos, Config.id.endPos)
     return `${timestamp}-${randomPart}`
 }
 

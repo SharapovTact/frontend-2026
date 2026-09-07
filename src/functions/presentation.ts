@@ -1,38 +1,36 @@
-import type { Presentation } from "../types/presentation.js";
-import  { generateId } from "../functions/common.js";
-
-
+import type { Presentation } from "../types/presentation";
+import { generateId } from "../functions/common";
 
 function createPresentation(
-    name: string
+    name: string = 'test'
 ): Presentation {
-    const presentation: Presentation = {
+    return {
         id: generateId(),
         name,
+        slides: [],
     }
-    return presentation
 }
 
 function updatePresentationName(
     presentation: Presentation,
     name: string
 ): Presentation {
-    presentation.name = name;
-    return presentation;
+    return {
+        ...presentation,
+        name,
+    }
 }
 
 function savePresentation(
     presentation: Presentation
 ): string {
-    const json: string = JSON.stringify(presentation)
-    return json
+    return JSON.stringify(presentation)
 }
 
 function loadPresentation(
     json: string
 ): Presentation {
-    const presentation: Presentation = JSON.parse(json)
-    return presentation
+    return JSON.parse(json)
 }
 
 export {

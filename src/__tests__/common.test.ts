@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {generateId} from '../functions/presentation.js';
+import {generateId} from '../functions/presentation';
 
 describe('common actions', () => {
     it('generate id', () => {

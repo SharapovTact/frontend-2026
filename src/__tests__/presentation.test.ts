@@ -1,5 +1,6 @@
 import type {Presentation} from '../types/presentation.js';
 import {describe, it, expect} from 'vitest';
+import {nullPresentation} from '../functions/mock';
 
 import {loadPresentation, updatePresentationName} from '../functions/presentation.js';
 import {createPresentation} from '../functions/presentation.js';
@@ -16,10 +17,7 @@ describe('presentation actions', () => {
     })
     it('updates presentation name', () => {
         // arrange
-        const presentation: Presentation = {
-            id: 'presentation-id',
-            name: 'my presentation',
-        }
+        const presentation: Presentation = nullPresentation 
         
         // act
         const renamed = updatePresentationName(
@@ -31,10 +29,7 @@ describe('presentation actions', () => {
         expect(renamed.name).toEqual('new presentation')
     })
     it('save and load presentation', () => {
-        const presentation: Presentation = {
-            id: 'presentation-id',
-            name: 'my presentation',
-        }
+        const presentation: Presentation = nullPresentation 
 
         const loadedPresentation: Presentation = 
         loadPresentation(savePresentation(presentation))
