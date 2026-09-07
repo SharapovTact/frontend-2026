@@ -1,19 +1,23 @@
-import type {Presentation} from '../types/presentation.js';
+import type {Presentation} from '../types/presentation';
 import {describe, it, expect} from 'vitest';
 import {nullPresentation} from '../functions/mock';
 
-import {loadPresentation, updatePresentationName} from '../functions/presentation.js';
-import {createPresentation} from '../functions/presentation.js';
-import {savePresentation} from '../functions/presentation.js';
+import {loadPresentation, updatePresentationName} from '../functions/presentation';
+import {createPresentation} from '../functions/presentation';
+import {savePresentation} from '../functions/presentation';
+import {generateId} from '../functions/common';
+
 
 
 describe('presentation actions', () => {
     it('create presentation', () => {
         const name: string = 'presentation-name'
+        const id: string = generateId()
 
-        const presentation: Presentation = createPresentation(name);
+        const presentation: Presentation = createPresentation(name, id);
 
         expect(presentation.name).toEqual(name)
+        expect(presentation.id).toEqual(id)
     })
     it('updates presentation name', () => {
         // arrange

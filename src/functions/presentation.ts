@@ -2,10 +2,11 @@ import type { Presentation } from "../types/presentation";
 import { generateId } from "../functions/common";
 
 function createPresentation(
-    name: string = 'test'
+    name: string = 'test',
+    id: string
 ): Presentation {
     return {
-        id: generateId(),
+        id,
         name,
         slides: [],
     }
