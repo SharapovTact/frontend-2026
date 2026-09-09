@@ -2,6 +2,7 @@ type Presentation = {
     id: string,
     name: string,
     slides: Slide[],
+    activeSlide?: string,
 }
 
 type Slide = {

@@ -35,8 +35,37 @@ function moveSlide(presentation: Presentation, slideId: string, newIndex: number
     }
 }
 
+function setActiveSlide(presentation: Presentation, slideId: string): Presentation {
+    return {
+        ...presentation,
+        activeSlide: slideId,
+    }
+}
+
+function duplicateSlide(presentation: Presentation, slideId: string, newSlideId: string): Presentation {
+    const slides = presentation.slides
+    const currentIndex = slides.findIndex(slide => slide.id === slideId)
+
+    if (currentIndex == -1) {
+        return presentation
+    }
+    const duplicatedSlide = {
+        ...presentation.slides[currentIndex],
+        id: newSlideId,
+    }
+    
+    slides.splice(currentIndex + 1, 0, duplicatedSlide)
+
+    return {
+        ...presentation,
+        slides,
+    }
+}
+
 export {
     addSlide,
     removeSlides,
     moveSlide,
+    setActiveSlide,
+    duplicateSlide,
 }

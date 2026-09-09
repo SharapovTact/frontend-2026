@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {addSlide, removeSlides, moveSlide} from '../functions/slide'
+import {addSlide, removeSlides, moveSlide, setActiveSlide, duplicateSlide} from '../functions/slide'
 import {generateId} from '../functions/common'
 import {nullPresentation} from './mock';
 import {Presentation} from '../types/presentation'
@@ -47,5 +47,29 @@ describe('slide actions', () => {
         
         expect(presentation.slides[0].id).toEqual('2')
         expect(presentation.slides[2].id).toEqual('1')
+    })
+
+    it('sets active slide', () => {
+        const slide1: Slide = { id: '1' }
+        const slide2: Slide = { id: '2' }
+        const slide3: Slide = { id: '3' }
+        const initialPresentation: Presentation = createTestPresentationWithSlides([slide1, slide2, slide3])
+
+        const presentation = setActiveSlide(initialPresentation, '1', '4')
+
+        expect(presentation.activeSlide).toEqual('1')
+    })
+
+    it('duplicates slide', () => {
+        const slide1: Slide = { id: '1' }
+        const slide2: Slide = { id: '2' }
+        const slide3: Slide = { id: '3' }
+        const initialPresentation: Presentation = createTestPresentationWithSlides([slide1, slide2, slide3])
+        
+        const presentation = duplicateSlide(initialPresentation, '1', '4')
+
+        expect(presentation.slides[0].id).toEqual('1')
+        expect(presentation.slides[1].id).toEqual('4')
+        expect(presentation.slides.length).toEqual(4)
     })
 })
