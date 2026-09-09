@@ -8,21 +8,7 @@ type Slide = {
     id: string
 }
 
-type Position = {
-    x: number
-    y: number
-}
-
-type Size = {
-    width: number
-    height: number
-}
-
-type BaseSlideObject = {
-    id: string
-    position: Position
-    size: Size
-}
+type Background = SolidBackground | ImageBackground
 
 type SolidBackground = {
     color: string
@@ -32,9 +18,9 @@ type ImageBackground = {
     src: string
 }
 
-type Background = SolidBackground | ImageBackground
+type SlideObject = TextObject | ImageObject
 
-type TextObject = {
+type TextObject = Object & {
     value: string
     fontSize: integer
     fontFamily: string
@@ -45,7 +31,24 @@ type ImageObject = BaseSlideObject & {
     src: string
 }
 
-type SlideObject = TextObject | ImageObject
+type BaseSlideObject = Object &{
+    id: string
+    position: Position
+    size: Size
+}
+
+type Position = {
+    x: number
+    y: number
+}
+
+type Size = {
+    width: number
+    height: number
+}
+
+type Object = {
+}
 
 export {
     type Presentation,

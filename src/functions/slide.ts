@@ -2,31 +2,25 @@ import type { Slide } from "../types/presentation";
 import type { Presentation } from "../types/presentation";
 import  { generateId } from "../functions/common";
 
-function addSlide(presentation: Presentation): Presentation {
+function addSlide(presentation: Presentation, id: string): Presentation {
     const slide: Slide = {
-        id: generateId(),
+        id,
     };
-
-    let slides: Slide[]
-    slides = [...(presentation.slides), slide]
-
     return {
         ...presentation,
-        slides,
+        slides: [...(presentation.slides), slide],
     }
 }
 
 function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
-    let newSlides: Slide[] = [...presentation.slides]
-    for (let i = newSlides.length - 1; i >= 0; i--) {
-        if (slideIds.includes(newSlides[i].id)) {
-            newSlides = newSlides.toSpliced(i, 1);
-        }
-    }
     return {
         ...presentation,
-        slides: newSlides
+        slides: presentation.slides.filter(slide => !slideIds.includes(slide.id))
     }
+}
+
+function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
+    let newSlides: Slide[] = [...presentation.slides]
 }
 
 export {

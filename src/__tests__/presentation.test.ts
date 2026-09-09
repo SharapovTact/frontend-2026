@@ -1,16 +1,14 @@
 import type {Presentation} from '../types/presentation';
 import {describe, it, expect} from 'vitest';
-import {nullPresentation} from '../functions/mock';
+import {nullPresentation} from './mock';
 
 import {loadPresentation, updatePresentationName} from '../functions/presentation';
 import {createPresentation} from '../functions/presentation';
 import {savePresentation} from '../functions/presentation';
 import {generateId} from '../functions/common';
 
-
-
 describe('presentation actions', () => {
-    it('create presentation', () => {
+    it('creates presentation', () => {
         const name: string = 'presentation-name'
         const id: string = generateId()
 
