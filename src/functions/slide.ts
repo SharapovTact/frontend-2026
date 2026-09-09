@@ -20,10 +20,23 @@ function removeSlides(presentation: Presentation, slideIds: string[]): Presentat
 }
 
 function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
-    let newSlides: Slide[] = [...presentation.slides]
+    const slides = [...presentation.slides]
+    const currentIndex = slides.findIndex(slide => slide.id === slideId)
+
+    if (currentIndex == -1) {
+        return presentation
+    }
+
+    const [movedSlide] = slides.splice(currentIndex, 1);
+    slides.splice(newIndex, 0, movedSlide);
+    return {
+        ...presentation,
+        slides,
+    }
 }
 
 export {
     addSlide,
     removeSlides,
+    moveSlide,
 }
