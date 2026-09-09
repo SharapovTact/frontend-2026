@@ -7,9 +7,10 @@ type Presentation = {
 
 type Slide = {
     id: string
+    background: Background
 }
 
-type Background = SolidBackground | ImageBackground
+type Background = SolidBackground | ImageBackground | GradientBackground
 
 type SolidBackground = {
     color: string
@@ -17,6 +18,11 @@ type SolidBackground = {
 
 type ImageBackground = {
     src: string
+}
+
+type GradientBackground = {
+    colors: string[]
+    angle?: number
 }
 
 type SlideObject = TextObject | ImageObject

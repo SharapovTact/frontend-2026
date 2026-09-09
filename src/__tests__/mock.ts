@@ -6,6 +6,20 @@ const nullPresentation: Presentation = {
     slides: [],
 }
 
+const slide1: Slide = { id: '1', color: 'white' }
+const slide2: Slide = { id: '2', color: 'white' }
+const slide3: Slide = { id: '3', color: 'white' }
+
+
+function createPresentationWithSlides(): Presentation {
+    return {
+        nullPresentation,
+        slides: [slide1, slide2, slide3],
+    }
+}
+
 export {
-    nullPresentation
+    nullPresentation,
+    createPresentationWithSlides,
+    slide1,
 }
