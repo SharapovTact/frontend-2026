@@ -23,6 +23,27 @@ function addTextObject(
     }
 }
 
+function addImageObject(
+    slide: Slide, 
+    id: string,
+    imageUrl: string, 
+    position: Position,
+    size: Size,
+): Slide {
+    const newObject: ImageObject = {
+        id,
+        type: 'image',
+        src: imageUrl,
+        position,
+        size
+    }
+    return {
+        ...slide,
+        objects: [...slide.objects, newObject]
+    }
+}
+
 export {
     addTextObject,
+    addImageObject,
 }
