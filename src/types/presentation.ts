@@ -8,6 +8,7 @@ type Presentation = {
 type Slide = {
     id: string
     background: Background
+    objects: Object[]
 }
 
 type Background = SolidBackground | ImageBackground | GradientBackground
@@ -29,6 +30,10 @@ type SlideObject = TextObject | ImageObject
 
 type TextObject = Object & {
     value: string
+    font: Font
+}
+
+type Font = {
     fontSize: integer
     fontFamily: string
     color: string
@@ -39,7 +44,6 @@ type ImageObject = BaseSlideObject & {
 }
 
 type BaseSlideObject = Object &{
-    id: string
     position: Position
     size: Size
 }
@@ -55,6 +59,8 @@ type Size = {
 }
 
 type Object = {
+    id: string
+    type: string
 }
 
 export {
@@ -64,4 +70,9 @@ export {
     type SlideObject,
     type TextObject,
     type ImageObject,
+
+    type Position,
+    type Size,
+    type Font,
+
 }

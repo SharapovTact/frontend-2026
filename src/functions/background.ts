@@ -1,5 +1,4 @@
 import type { Presentation, Slide, Background } from "../types/presentation";
-import  { generateId } from "../functions/common";
 
 function setSlideBackgroundColor(slide: Slide, color: string): Slide {
     return {

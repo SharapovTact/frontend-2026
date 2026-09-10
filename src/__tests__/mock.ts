@@ -6,9 +6,9 @@ const nullPresentation: Presentation = {
     slides: [],
 }
 
-const slide1: Slide = { id: '1', color: 'white' }
-const slide2: Slide = { id: '2', color: 'white' }
-const slide3: Slide = { id: '3', color: 'white' }
+const slide1: Slide = { id: '1', background: {color: 'white'}, objects: [] }
+const slide2: Slide = { id: '2', background: {color: 'white'}, objects: [] }
+const slide3: Slide = { id: '3', background: {color: 'white'}, objects: [] }
 
 
 function createPresentationWithSlides(): Presentation {
