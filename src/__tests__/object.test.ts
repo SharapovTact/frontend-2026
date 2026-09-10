@@ -18,7 +18,7 @@ describe('object actions', () => {
         )
 
         expect(updatedSlide.objects.length).toEqual(slide.objects.length + 1)
-        expect(updatedSlide.objects[0]).toMatchObject({
+        expect(updatedSlide.objects[0]).toMatchObject({ // TODO чем отличается toMatchObject от toEqual
             type: 'text',
             id: 'textId1',
             content: 'hello world!',
@@ -51,7 +51,7 @@ describe('object actions', () => {
     it('removes object', () => {
         const slide = createSlideWithObjects()
 
-        const newSlide = removeObject(slide, 'textId1')
+        const newSlide = removeObject(slide, 'textId1') //TODO проверить что у оригинального слайда объектов не убавилось
         
         expect(newSlide.objects.find(obj => obj.id == 'textId1')).toBeUndefined()
     })
@@ -63,7 +63,7 @@ describe('object actions', () => {
 
         expect(newSlide.objects[0].position).toEqual(newPosition)
     })
-resizeObject
+    
     it('resizes object', () => {
         const slide = createSlideWithObjects()
         const newSize = {width: 3, height: 3}

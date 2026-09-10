@@ -1,6 +1,6 @@
 import type { Slide } from "../types/presentation";
 import type { Presentation } from "../types/presentation";
-import  { generateId } from "../functions/common";
+import { generateId } from "../functions/common";
 
 function addSlide(presentation: Presentation, id: string): Presentation {
     const slide: Slide = {
@@ -49,11 +49,14 @@ function duplicateSlide(presentation: Presentation, slideId: string, newSlideId:
     if (currentIndex == -1) {
         return presentation
     }
+    const originalSlide = {
+        ...presentation.slides[currentIndex]
+    }
     const duplicatedSlide = {
-        ...presentation.slides[currentIndex],
+        ...structuredClone(originalSlide),
         id: newSlideId,
     }
-    
+
     slides.splice(currentIndex + 1, 0, duplicatedSlide)
 
     return {

@@ -1,4 +1,4 @@
-type Presentation = {
+type Presentation = { //TODO разнести по файлам
     id: string,
     name: string,
     slides: Slide[],
@@ -34,7 +34,7 @@ type TextObject = Object & {
 }
 
 type Font = {
-    fontSize: integer
+    fontSize: number
     fontFamily: string
     color: string
 }
@@ -74,5 +74,4 @@ export {
     type Position,
     type Size,
     type Font,
-
 }

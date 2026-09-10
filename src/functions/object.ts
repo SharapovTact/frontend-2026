@@ -19,7 +19,8 @@ function addTextObject(
     }
     return {
         ...slide,
-        objects: [...slide.objects, newObject]
+        objects: [...slide.objects, newObject] //TODO вынести в функцию. 
+        // TODO вынести добавление базового объекта на слайд
     }
 }
 
@@ -51,7 +52,8 @@ function removeObject(slide: Slide, objectId: string): Slide {
         return slide
     }
 
-    const [removedObject] = objects.splice(currentIndex, 1);
+    const removedObject = objects.splice(currentIndex, 1); //TODO зачем третий параметр сплайсу
+    // TODO сделать удаление через фильтр
     return {
         ...slide,
         objects,
@@ -87,7 +89,7 @@ function resizeObject(
     size: Size
 ): Slide {
     const objects = [...slide.objects]
-    const currentIndex = objects.findIndex(object => object.id === objectId)
+    const currentIndex = objects.findIndex(object => object.id === objectId) //TODO сделать через map, а не через поиск индекса
 
     if (currentIndex == -1 || objects[currentIndex].type != 'image') {
         return slide
