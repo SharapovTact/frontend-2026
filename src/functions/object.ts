@@ -43,7 +43,23 @@ function addImageObject(
     }
 }
 
+function removeObject(slide: Slide, objectId: string): Slide {
+    const objects = [...slide.objects]
+    const currentIndex = objects.findIndex(object => object.id === objectId)
+
+    if (currentIndex == -1) {
+        return slide
+    }
+
+    const [removedObject] = objects.splice(currentIndex, 1);
+    return {
+        ...slide,
+        objects,
+    }
+}
+
 export {
     addTextObject,
     addImageObject,
+    removeObject,
 }

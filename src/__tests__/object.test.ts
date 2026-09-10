@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest';
-import {addTextObject, addImageObject} from '../functions/object'
+import {addTextObject, addImageObject, removeObject} from '../functions/object'
 import {generateId} from '../functions/common'
-import {slide1, createPresentationWithSlides} from './mock';
+import {slide1, createPresentationWithSlides, createSlideWithObjects} from './mock';
 import {Presentation} from '../types/presentation'
 
 describe('object actions', () => {
@@ -47,5 +47,12 @@ describe('object actions', () => {
             position: {x: 3, y: 3},
             size: {width: 3, height: 3},
         })
+    })
+    it('removes object', () => {
+        const slide = createSlideWithObjects()
+
+        const newSlide = removeObject(slide, 'textId1')
+        
+        expect(newSlide.objects.find(obj => obj.id == 'textId1')).toBeUndefined()
     })
 })
