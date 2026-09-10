@@ -58,8 +58,80 @@ function removeObject(slide: Slide, objectId: string): Slide {
     }
 }
 
+function moveObject(
+    slide: Slide, 
+    objectId: string, 
+    position: Position
+): Slide {
+    const objects = [...slide.objects]
+    const currentIndex = objects.findIndex(object => object.id === objectId)
+
+    if (currentIndex == -1) {
+        return slide
+    }
+
+    objects[currentIndex] = {
+        ...objects[currentIndex],
+        position
+    }
+
+    return {
+        ...slide,
+        objects
+    }
+}
+
+function resizeObject(
+    slide: Slide,
+    objectId: string, 
+    size: Size
+): Slide {
+    const objects = [...slide.objects]
+    const currentIndex = objects.findIndex(object => object.id === objectId)
+
+    if (currentIndex == -1 || objects[currentIndex].type != 'image') {
+        return slide
+    }
+
+    objects[currentIndex] = {
+        ...objects[currentIndex],
+        size
+    }
+
+    return {
+        ...slide,
+        objects
+    }
+}
+
+function updateTextObjectStyle(
+    slide: Slide, 
+    objectId: string, 
+    font: Font
+): Slide {
+    const objects = [...slide.objects]
+    const currentIndex = objects.findIndex(object => object.id === objectId)
+
+    if (currentIndex == -1 || objects[currentIndex].type != 'text') {
+        return slide
+    }
+
+    objects[currentIndex] = {
+        ...objects[currentIndex],
+        font
+    }
+
+    return {
+        ...slide,
+        objects
+    }
+}
+
 export {
     addTextObject,
     addImageObject,
     removeObject,
+    moveObject,
+    updateTextObjectStyle,
+    resizeObject,
 }
