@@ -1,8 +1,7 @@
 import {describe, it, expect} from 'vitest';
 import {setSlideBackgroundColor, setSlideBackgroundImage, setSlideBackgroundGradient, clearSlideBackground} from '../functions/background'
-import {generateId} from '../functions/common'
-import {slide1, createPresentationWithSlides} from './mock';
-import {SolidBackground, ImageBackground, GradientBackground, Slide} from '../types/presentation'
+import {slide1} from './mock';
+import { GradientBackground, ImageBackground, Slide, SolidBackground } from '../types/slide';
 
 describe('background actions', () => {
     it('sets colors background action', () => {

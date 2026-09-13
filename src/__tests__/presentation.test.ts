@@ -1,7 +1,6 @@
 import type {Presentation} from '../types/presentation';
 import {describe, it, expect} from 'vitest';
 import {nullPresentation} from './mock';
-
 import {loadPresentation, updatePresentationName} from '../functions/presentation';
 import {createPresentation} from '../functions/presentation';
 import {savePresentation} from '../functions/presentation';

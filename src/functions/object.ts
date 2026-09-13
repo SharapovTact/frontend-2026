@@ -1,5 +1,5 @@
-import type { Presentation, Slide, Background, Position, Size, Font, TextObject, ImageObject } from "../types/presentation";
-import  { generateId } from "../functions/common";
+import { Font, ImageObject, Position, Size, TextObject } from "../types/objects";
+import { Slide } from "../types/slide";
 
 function addTextObject(
     slide: Slide, 

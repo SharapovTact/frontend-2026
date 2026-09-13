@@ -1,4 +1,4 @@
-import type { Presentation, Slide, Background } from "../types/presentation";
+import { Slide } from "../types/slide"
 
 function setSlideBackgroundColor(slide: Slide, color: string): Slide {
     return {

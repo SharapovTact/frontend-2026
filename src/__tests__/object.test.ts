@@ -1,8 +1,7 @@
 import {describe, it, expect} from 'vitest';
 import {addTextObject, addImageObject, removeObject, moveObject, updateTextObjectStyle, resizeObject} from '../functions/object'
-import {generateId} from '../functions/common'
-import {slide1, createPresentationWithSlides, createSlideWithObjects} from './mock';
-import {Presentation, Font, TextObject} from '../types/presentation'
+import {slide1, createSlideWithObjects} from './mock';
+import { Font, TextObject } from '../types/objects';
 
 describe('object actions', () => {
     it('adds text object', () => {

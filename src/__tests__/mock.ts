@@ -1,5 +1,6 @@
-import {Presentation, Slide} from "../types/presentation"
 import {addTextObject} from "../functions/object"
+import { Presentation } from "../types/presentation"
+import { Slide } from "../types/slide"
 
 const nullPresentation: Presentation = {
     name: 'test',

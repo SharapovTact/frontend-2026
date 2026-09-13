@@ -1,81 +1,12 @@
-type Presentation = { //TODO разнести по файлам
+import { Slide } from "./slide"
+
+type Presentation = {
     id: string,
     name: string,
     slides: Slide[],
     activeSlide?: string,
 }
 
-type Slide = {
-    id: string
-    background: Background
-    objects: SlideObject[]
-}
-
-type Background = SolidBackground | ImageBackground | GradientBackground
-
-type SolidBackground = {
-    color: string
-}
-
-type ImageBackground = {
-    src: string
-}
-
-type GradientBackground = {
-    colors: string[]
-    angle?: number
-}
-
-type SlideObject = TextObject | ImageObject
-
-type TextObject = BaseSlideObject & {
-    content: string
-    font: Font
-}
-
-type Font = {
-    size: number
-    family: string
-    color: string
-}
-
-type ImageObject = BaseSlideObject & {
-    src: string
-}
-
-type BaseSlideObject = Object & {
-    position: Position
-    size: Size
-}
-
-type Position = {
-    x: number
-    y: number
-}
-
-type Size = {
-    width: number
-    height: number
-}
-
-type Object = {
-    id: string
-    type: string
-}
-
 export {
     type Presentation,
-    type Slide,
-    type Background,
-    type SlideObject,
-    type TextObject,
-    type ImageObject,
-
-    type SolidBackground,
-    type ImageBackground,
-    type GradientBackground,
-
-    type Position,
-    type Size,
-    type Font,
 }

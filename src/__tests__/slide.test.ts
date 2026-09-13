@@ -2,8 +2,8 @@ import {describe, it, expect} from 'vitest';
 import {addSlide, removeSlides, moveSlide, setActiveSlide, duplicateSlide} from '../functions/slide'
 import {generateId} from '../functions/common'
 import {nullPresentation, createPresentationWithSlides} from './mock';
-import {Presentation, Slide} from '../types/presentation'
-
+import { Presentation } from '../types/presentation';
+import { Slide } from '../types/slide';
 
 describe('slide actions', () => {
     it('adds slide', () => {
