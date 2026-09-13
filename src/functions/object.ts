@@ -45,18 +45,15 @@ function addImageObject(
 }
 
 function removeObject(slide: Slide, objectId: string): Slide {
-    const objects = [...slide.objects]
-    const currentIndex = objects.findIndex(object => object.id === objectId)
+    const filteredObjects = slide.objects.filter(object => object.id !== objectId)
 
-    if (currentIndex == -1) {
+    if (filteredObjects.length === slide.objects.length) {
         return slide
     }
 
-    const removedObject = objects.splice(currentIndex, 1); //TODO зачем третий параметр сплайсу
-    // TODO сделать удаление через фильтр
     return {
         ...slide,
-        objects,
+        objects: filteredObjects,
     }
 }
 
@@ -65,44 +62,43 @@ function moveObject(
     objectId: string, 
     position: Position
 ): Slide {
-    const objects = [...slide.objects]
-    const currentIndex = objects.findIndex(object => object.id === objectId)
+    let isModified = false;
+    const updatedObjects = slide.objects.map(object => {
+        if (object.id === objectId) {
+            isModified = true
+            return { ...object, position }
+        }
+        return object
+    })
 
-    if (currentIndex == -1) {
+    if (!isModified) {
         return slide
-    }
-
-    objects[currentIndex] = {
-        ...objects[currentIndex],
-        position
     }
 
     return {
         ...slide,
-        objects
+        objects: updatedObjects
     }
 }
 
-function resizeObject(
-    slide: Slide,
-    objectId: string, 
-    size: Size
-): Slide {
-    const objects = [...slide.objects]
-    const currentIndex = objects.findIndex(object => object.id === objectId) //TODO сделать через map, а не через поиск индекса
 
-    if (currentIndex == -1 || objects[currentIndex].type != 'image') {
+function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
+    let isModified = false
+    const updatedObjects = slide.objects.map(object => {
+        if (object.id === objectId && object.type === 'image') {
+            isModified = true
+            return { ...object, size }
+        }
+        return object
+    })
+
+    if (!isModified) {
         return slide
-    }
-
-    objects[currentIndex] = {
-        ...objects[currentIndex],
-        size
     }
 
     return {
         ...slide,
-        objects
+        objects: updatedObjects
     }
 }
 
@@ -111,21 +107,22 @@ function updateTextObjectStyle(
     objectId: string, 
     font: Font
 ): Slide {
-    const objects = [...slide.objects]
-    const currentIndex = objects.findIndex(object => object.id === objectId)
+    let isModified = false
+    const updatedObjects = slide.objects.map(object => {
+        if (object.id === objectId && object.type === 'text') {
+            isModified = true
+            return { ...object, font }
+        }
+        return object;
+    })
 
-    if (currentIndex == -1 || objects[currentIndex].type != 'text') {
-        return slide
-    }
-
-    objects[currentIndex] = {
-        ...objects[currentIndex],
-        font
+    if (!isModified) {
+        return slide;
     }
 
     return {
         ...slide,
-        objects
+        objects: updatedObjects
     }
 }
 
