@@ -1,5 +1,19 @@
-import { Font, ImageObject, Position, Size, TextObject } from "../types/objects";
+import { Font, ImageObject, Position, Size, SlideObject, TextObject } from "../types/objects";
 import { Slide } from "../types/slide";
+
+function addObjectToSlide(slide: Slide, newObject: SlideObject): Slide {
+    return {
+        ...slide,
+        objects: [...slide.objects, newObject]
+    }
+}
+
+function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
+    return {
+        ...slide,
+        objects: newObjects,
+    }
+}
 
 function addTextObject(
     slide: Slide, 
@@ -17,11 +31,7 @@ function addTextObject(
         size,
         font
     }
-    return {
-        ...slide,
-        objects: [...slide.objects, newObject] //TODO вынести в функцию. 
-        // TODO вынести добавление базового объекта на слайд
-    }
+    return addObjectToSlide(slide, newObject)
 }
 
 function addImageObject(
@@ -38,10 +48,7 @@ function addImageObject(
         position,
         size
     }
-    return {
-        ...slide,
-        objects: [...slide.objects, newObject]
-    }
+    return addObjectToSlide(slide, newObject)
 }
 
 function removeObject(slide: Slide, objectId: string): Slide {
@@ -51,10 +58,7 @@ function removeObject(slide: Slide, objectId: string): Slide {
         return slide
     }
 
-    return {
-        ...slide,
-        objects: filteredObjects,
-    }
+    return updateSlideObjects(slide, filteredObjects)
 }
 
 function moveObject(
@@ -75,10 +79,7 @@ function moveObject(
         return slide
     }
 
-    return {
-        ...slide,
-        objects: updatedObjects
-    }
+    return updateSlideObjects(slide, updatedObjects)
 }
 
 
@@ -96,10 +97,7 @@ function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
         return slide
     }
 
-    return {
-        ...slide,
-        objects: updatedObjects
-    }
+    return updateSlideObjects(slide, updatedObjects)
 }
 
 function updateTextObjectStyle(
@@ -120,10 +118,7 @@ function updateTextObjectStyle(
         return slide;
     }
 
-    return {
-        ...slide,
-        objects: updatedObjects
-    }
+    return updateSlideObjects(slide, updatedObjects)
 }
 
 export {

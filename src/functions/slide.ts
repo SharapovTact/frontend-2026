@@ -1,6 +1,13 @@
 import type { Presentation } from "../types/presentation";
 import { Slide, SolidBackground } from "../types/slide";
 
+function updatePresentationSlides(presentation: Presentation, newSlides: Slide[]): Presentation {
+    return {
+        ...presentation,
+        slides: newSlides,
+    }
+}
+
 function addSlide(presentation: Presentation, id: string): Presentation {
     const background: SolidBackground = {color: 'white'}
     const slide: Slide = {
@@ -8,17 +15,11 @@ function addSlide(presentation: Presentation, id: string): Presentation {
         background,
         objects: [],
     };
-    return {
-        ...presentation,
-        slides: [...(presentation.slides), slide],
-    }
+    return updatePresentationSlides(presentation, [...(presentation.slides), slide])
 }
 
 function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
-    return {
-        ...presentation,
-        slides: presentation.slides.filter(slide => !slideIds.includes(slide.id))
-    }
+    return updatePresentationSlides(presentation, presentation.slides.filter(slide => !slideIds.includes(slide.id)))
 }
 
 function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
@@ -31,10 +32,7 @@ function moveSlide(presentation: Presentation, slideId: string, newIndex: number
 
     const [movedSlide] = slides.splice(currentIndex, 1);
     slides.splice(newIndex, 0, movedSlide);
-    return {
-        ...presentation,
-        slides,
-    }
+    return updatePresentationSlides(presentation, slides)
 }
 
 function setActiveSlide(presentation: Presentation, slideId: string): Presentation {
@@ -44,27 +42,31 @@ function setActiveSlide(presentation: Presentation, slideId: string): Presentati
     }
 }
 
-function duplicateSlide(presentation: Presentation, slideId: string, newSlideId: string): Presentation {
-    const slides = presentation.slides
-    const currentIndex = slides.findIndex(slide => slide.id === slideId)
+function duplicateSlide(
+    presentation: Presentation, 
+    slideId: string, 
+    newSlideId: string
+): Presentation {
+    let isModified = false
+    const updatedSlides = presentation.slides.reduce<Slide[]>((acc, slide) => {
+        if (slide.id === slideId) {
+            isModified = true
+            const duplicatedSlide = {
+                ...structuredClone(slide),
+                id: newSlideId,
+            }
+            acc.push(slide, duplicatedSlide)
+        } else {
+            acc.push(slide)
+        }
 
-    if (currentIndex == -1) {
+        return acc
+    }, [])
+    if (!isModified) {
         return presentation
     }
-    const originalSlide = {
-        ...presentation.slides[currentIndex]
-    }
-    const duplicatedSlide = {
-        ...structuredClone(originalSlide),
-        id: newSlideId,
-    }
-
-    slides.splice(currentIndex + 1, 0, duplicatedSlide)
-
-    return {
-        ...presentation,
-        slides,
-    }
+    
+    return updatePresentationSlides(presentation, updatedSlides)
 }
 
 export {
