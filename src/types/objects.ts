@@ -36,7 +36,7 @@ type Object = {
 }
 
 export {
-    TextObject, 
+    TextObject,
     Font,
     ImageObject,
     BaseSlideObject,

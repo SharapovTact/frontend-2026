@@ -16,10 +16,10 @@ function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
 }
 
 function addTextObject(
-    slide: Slide, 
+    slide: Slide,
     id: string,
-    content: string, 
-    position: Position, 
+    content: string,
+    position: Position,
     size: Size,
     font: Font
 ): Slide {
@@ -35,9 +35,9 @@ function addTextObject(
 }
 
 function addImageObject(
-    slide: Slide, 
+    slide: Slide,
     id: string,
-    imageUrl: string, 
+    imageUrl: string,
     position: Position,
     size: Size,
 ): Slide {
@@ -62,8 +62,8 @@ function removeObject(slide: Slide, objectId: string): Slide {
 }
 
 function moveObject(
-    slide: Slide, 
-    objectId: string, 
+    slide: Slide,
+    objectId: string,
     position: Position
 ): Slide {
     let isModified = false;
@@ -101,8 +101,8 @@ function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
 }
 
 function updateTextObjectStyle(
-    slide: Slide, 
-    objectId: string, 
+    slide: Slide,
+    objectId: string,
     font: Font
 ): Slide {
     let isModified = false

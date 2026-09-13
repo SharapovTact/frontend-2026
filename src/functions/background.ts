@@ -2,7 +2,7 @@ import { Slide } from "../types/slide"
 
 function setSlideBackgroundColor(slide: Slide, color: string): Slide {
     return {
-        ...slide, 
+        ...slide,
         background: { color },
     }
 }
@@ -17,7 +17,7 @@ function setSlideBackgroundImage(slide: Slide, imageUrl: string): Slide {
 function setSlideBackgroundGradient(slide: Slide, colors: string[], angle?: number): Slide {
     return {
         ...slide,
-        background: {colors, angle }
+        background: { colors: [...colors], angle }
     }
 }
 

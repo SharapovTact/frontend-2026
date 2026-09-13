@@ -9,7 +9,7 @@ function updatePresentationSlides(presentation: Presentation, newSlides: Slide[]
 }
 
 function addSlide(presentation: Presentation, id: string): Presentation {
-    const background: SolidBackground = {color: 'white'}
+    const background: SolidBackground = { color: 'white' }
     const slide: Slide = {
         id,
         background,
@@ -43,8 +43,8 @@ function setActiveSlide(presentation: Presentation, slideId: string): Presentati
 }
 
 function duplicateSlide(
-    presentation: Presentation, 
-    slideId: string, 
+    presentation: Presentation,
+    slideId: string,
     newSlideId: string
 ): Presentation {
     let isModified = false
@@ -65,7 +65,7 @@ function duplicateSlide(
     if (!isModified) {
         return presentation
     }
-    
+
     return updatePresentationSlides(presentation, updatedSlides)
 }
 

@@ -1,4 +1,4 @@
-const Config = { 
+const Config = {
     id: {
         numberDiversity: 36,
         beginPos: 2,
