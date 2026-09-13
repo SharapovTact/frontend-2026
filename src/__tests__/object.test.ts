@@ -1,0 +1,86 @@
+import {describe, it, expect} from 'vitest';
+import {addTextObject, addImageObject, removeObject, moveObject, updateTextObjectStyle, resizeObject} from '../functions/object'
+import {slide1, createSlideWithObjects} from './mock';
+import { Font, TextObject } from '../types/objects';
+
+describe('object actions', () => {
+    it('adds text object', () => {
+        const slide = slide1
+
+        const updatedSlide = addTextObject(
+            slide,
+            'textId1',
+            'hello world!',
+            {x: 3, y: 3},
+            {width: 3, height: 3},
+            {family: 'Arial', size: 12, color: 'black'}
+        )
+
+        expect(updatedSlide.objects.length).toEqual(slide.objects.length + 1)
+        expect(updatedSlide.objects[0]).toMatchObject({ // TODO чем отличается toMatchObject от toEqual
+            type: 'text',
+            id: 'textId1',
+            content: 'hello world!',
+            position: {x: 3, y: 3},
+            size: {width: 3, height: 3},
+            font: {family: 'Arial', size: 12, color: 'black'}
+        })
+    })
+
+    it('adds image object', () => {
+        const slide = slide1
+
+        const updatedSlide = addImageObject(
+            slide,
+            'imageId1',
+            'cats.jpg',
+            {x: 3, y: 3},
+            {width: 3, height: 3}
+        )
+
+        expect(updatedSlide.objects.length).toEqual(slide.objects.length + 1)
+        expect(updatedSlide.objects[0]).toMatchObject({
+            type: 'image',
+            id: 'imageId1',
+            src: 'cats.jpg',
+            position: {x: 3, y: 3},
+            size: {width: 3, height: 3},
+        })
+    })
+    it('removes object', () => {
+        const slide = createSlideWithObjects()
+
+        const newSlide = removeObject(slide, 'textId1') //TODO проверить что у оригинального слайда объектов не убавилось
+        
+        expect(newSlide.objects.find(obj => obj.id == 'textId1')).toBeUndefined()
+    })
+    it('moves object', () => {
+        const slide = createSlideWithObjects()
+        const newPosition = {x: 5, y: 8}
+
+        const newSlide = moveObject(slide, 'textId1', newPosition)
+
+        expect(newSlide.objects[0].position).toEqual(newPosition)
+    })
+    
+    it('resizes text object', () => {
+        const slide = createSlideWithObjects()
+        const oldTextObject = slide.objects[0] as TextObject;
+        const newFont: Font = {...oldTextObject.font, size: 4}
+
+        const newSlide = updateTextObjectStyle(slide, 'textId1', newFont)
+        const textObject = newSlide.objects[0] as TextObject
+
+        expect(textObject.font).toEqual(newFont)
+    })
+
+    it('updates text style', () => {
+        const slide = createSlideWithObjects()
+        const newStyle = {family: 'Arial', size: 12, color: 'black'}
+
+        const newSlide = updateTextObjectStyle(slide, 'textId1', newStyle)
+        const textObject = newSlide.objects[0] as TextObject
+
+        expect(textObject.font).toEqual(newStyle)
+    })
+})
