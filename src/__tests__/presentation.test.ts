@@ -19,6 +19,7 @@ describe('presentation actions', () => {
     it('updates presentation name', () => {
         // arrange
         const presentation: Presentation = nullPresentation 
+        const originalName: string = presentation.name
         
         // act
         const renamed = updatePresentationName(
@@ -28,6 +29,8 @@ describe('presentation actions', () => {
 
         // assert
         expect(renamed.name).toEqual('new presentation')
+        expect(renamed).not.toBe(presentation)
+        expect(presentation.name).toEqual(originalName)
     })
     it('save and load presentation', () => {
         const presentation: Presentation = nullPresentation 
@@ -35,7 +38,9 @@ describe('presentation actions', () => {
         const loadedPresentation: Presentation = 
         loadPresentation(savePresentation(presentation))
 
-        expect(loadedPresentation.id).toEqual(presentation.id);
-        expect(loadedPresentation.name).toEqual(presentation.name);
+        expect(loadedPresentation.id).toEqual(presentation.id)
+        expect(loadedPresentation.name).toEqual(presentation.name)
+        expect(loadedPresentation).toEqual(presentation)
+        expect(loadedPresentation).not.toBe(presentation)
     })
 })
