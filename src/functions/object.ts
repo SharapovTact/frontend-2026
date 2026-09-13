@@ -1,4 +1,4 @@
-import type { Presentation, Slide, Background, Position, Size, Font } from "../types/presentation";
+import type { Presentation, Slide, Background, Position, Size, Font, TextObject, ImageObject } from "../types/presentation";
 import  { generateId } from "../functions/common";
 
 function addTextObject(

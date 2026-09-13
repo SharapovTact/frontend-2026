@@ -8,7 +8,7 @@ type Presentation = { //TODO разнести по файлам
 type Slide = {
     id: string
     background: Background
-    objects: Object[]
+    objects: SlideObject[]
 }
 
 type Background = SolidBackground | ImageBackground | GradientBackground
@@ -28,14 +28,14 @@ type GradientBackground = {
 
 type SlideObject = TextObject | ImageObject
 
-type TextObject = Object & {
-    value: string
+type TextObject = BaseSlideObject & {
+    content: string
     font: Font
 }
 
 type Font = {
-    fontSize: number
-    fontFamily: string
+    size: number
+    family: string
     color: string
 }
 
@@ -43,7 +43,7 @@ type ImageObject = BaseSlideObject & {
     src: string
 }
 
-type BaseSlideObject = Object &{
+type BaseSlideObject = Object & {
     position: Position
     size: Size
 }
@@ -70,6 +70,10 @@ export {
     type SlideObject,
     type TextObject,
     type ImageObject,
+
+    type SolidBackground,
+    type ImageBackground,
+    type GradientBackground,
 
     type Position,
     type Size,

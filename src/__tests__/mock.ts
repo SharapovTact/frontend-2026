@@ -14,7 +14,7 @@ const slide3: Slide = { id: '3', background: {color: 'white'}, objects: [] }
 
 function createPresentationWithSlides(): Presentation {
     return {
-        nullPresentation,
+        ...nullPresentation,
         slides: [slide1, slide2, slide3],
     }
 }

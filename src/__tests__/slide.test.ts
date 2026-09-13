@@ -2,7 +2,7 @@ import {describe, it, expect} from 'vitest';
 import {addSlide, removeSlides, moveSlide, setActiveSlide, duplicateSlide} from '../functions/slide'
 import {generateId} from '../functions/common'
 import {nullPresentation, createPresentationWithSlides} from './mock';
-import {Presentation} from '../types/presentation'
+import {Presentation, Slide} from '../types/presentation'
 
 
 describe('slide actions', () => {
@@ -41,7 +41,7 @@ describe('slide actions', () => {
     it('sets active slide', () => {
         const initialPresentation: Presentation = createPresentationWithSlides()
 
-        const presentation = setActiveSlide(initialPresentation, '1', '4')
+        const presentation = setActiveSlide(initialPresentation, '1')
 
         expect(presentation.activeSlide).toEqual('1')
     })

@@ -2,7 +2,7 @@ import {describe, it, expect} from 'vitest';
 import {addTextObject, addImageObject, removeObject, moveObject, updateTextObjectStyle, resizeObject} from '../functions/object'
 import {generateId} from '../functions/common'
 import {slide1, createPresentationWithSlides, createSlideWithObjects} from './mock';
-import {Presentation} from '../types/presentation'
+import {Presentation, Font, TextObject} from '../types/presentation'
 
 describe('object actions', () => {
     it('adds text object', () => {
@@ -64,13 +64,15 @@ describe('object actions', () => {
         expect(newSlide.objects[0].position).toEqual(newPosition)
     })
     
-    it('resizes object', () => {
+    it('resizes text object', () => {
         const slide = createSlideWithObjects()
-        const newSize = {width: 3, height: 3}
+        const oldTextObject = slide.objects[0] as TextObject;
+        const newFont: Font = {...oldTextObject.font, size: 4}
 
-        const newSlide = updateTextObjectStyle(slide, 'textId1', newSize)
+        const newSlide = updateTextObjectStyle(slide, 'textId1', newFont)
+        const textObject = newSlide.objects[0] as TextObject
 
-        expect(newSlide.objects[0].size).toEqual(newSize)
+        expect(textObject.font).toEqual(newFont)
     })
 
     it('updates text style', () => {
@@ -78,7 +80,8 @@ describe('object actions', () => {
         const newStyle = {family: 'Arial', size: 12, color: 'black'}
 
         const newSlide = updateTextObjectStyle(slide, 'textId1', newStyle)
+        const textObject = newSlide.objects[0] as TextObject
 
-        expect(newSlide.objects[0].font).toEqual(newStyle)
+        expect(textObject.font).toEqual(newStyle)
     })
 })

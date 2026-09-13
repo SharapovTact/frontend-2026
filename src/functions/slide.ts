@@ -1,10 +1,13 @@
-import type { Slide } from "../types/presentation";
+import type { Slide, SolidBackground } from "../types/presentation";
 import type { Presentation } from "../types/presentation";
 import { generateId } from "../functions/common";
 
 function addSlide(presentation: Presentation, id: string): Presentation {
+    const background: SolidBackground = {color: 'white'}
     const slide: Slide = {
         id,
+        background,
+        objects: [],
     };
     return {
         ...presentation,
