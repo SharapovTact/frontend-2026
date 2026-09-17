@@ -1,4 +1,4 @@
-import { Font, ImageObject, Position, Size, SlideObject, TextObject } from "../types/objects";
+import { Font, ImageObject, ImagePropeties, Position, Size, SlideObject, TextObject, TextPropeties } from "../types/objects";
 import { Slide } from "../types/slide";
 
 function addObjectToSlide(slide: Slide, newObject: SlideObject): Slide {
@@ -15,38 +15,33 @@ function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
     }
 }
 
-function addTextObject( //TODO не больше трёх аргументов
+function addTextObject(
     slide: Slide,
     id: string,
-    content: string,
-    position: Position,
-    size: Size,
-    font: Font
+    textPropeties: TextPropeties,
 ): Slide {
     const newObject: TextObject = {
         id,
         type: 'text',
-        content,
-        position,
-        size,
-        font
+        content: textPropeties.content,
+        position: textPropeties.position,
+        size: textPropeties.size,
+        font: textPropeties.font
     }
     return addObjectToSlide(slide, newObject)
 }
 
-function addImageObject( //TODO не больше трёх аргументов
+function addImageObject(
     slide: Slide,
     id: string,
-    imageUrl: string,
-    position: Position,
-    size: Size,
+    imagePropeties: ImagePropeties
 ): Slide {
     const newObject: ImageObject = {
         id,
         type: 'image',
-        src: imageUrl,
-        position,
-        size
+        src: imagePropeties.src,
+        position: imagePropeties.position,
+        size: imagePropeties.size
     }
     return addObjectToSlide(slide, newObject)
 }

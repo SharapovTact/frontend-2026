@@ -11,10 +11,10 @@ describe('object actions', () => {
         const updatedSlide = addTextObject(
             slide,
             'textId1',
-            'hello world!',
-            { x: 3, y: 3 },
-            { width: 3, height: 3 },
-            { family: 'Arial', size: 12, color: 'black' }
+            {content: 'hello world!',
+            position: { x: 3, y: 3 },
+            size: { width: 3, height: 3 },
+            font: { family: 'Arial', size: 12, color: 'black' }}
         )
         const addedObject = updatedSlide.objects.find(obj => obj.id === 'textId1') as TextObject
 
@@ -33,9 +33,9 @@ describe('object actions', () => {
         const updatedSlide = addImageObject(
             slide,
             'imageId1',
-            'cats.jpg',
-            { x: 3, y: 3 },
-            { width: 3, height: 3 }
+            {src: 'cats.jpg',
+            position: { x: 3, y: 3 },
+            size: { width: 3, height: 3 }}
         )
         const addedObject = updatedSlide.objects.find(obj => obj.id === 'imageId1') as ImageObject
 

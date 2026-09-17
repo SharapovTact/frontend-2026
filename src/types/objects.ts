@@ -1,5 +1,12 @@
 type SlideObject = TextObject | ImageObject
 
+type TextPropeties = {
+    content: string,
+    position: Position,
+    size: Size,
+    font: Font
+}
+
 type TextObject = BaseSlideObject & {
     content: string
     font: Font
@@ -10,6 +17,12 @@ type Font = {
     size: number
     family: string
     color: string
+}
+
+type ImagePropeties = {
+    src: string,
+    position: Position,
+    size: Size,
 }
 
 type ImageObject = BaseSlideObject & {
@@ -46,4 +59,6 @@ export {
     Size,
     Object,
     SlideObject,
+    TextPropeties,
+    ImagePropeties,
 }

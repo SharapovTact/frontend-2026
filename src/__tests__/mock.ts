@@ -28,25 +28,25 @@ function createSlideWithObjects(id: string): Slide {
     const slide2 = addTextObject(
         slide1,
         'textId1',
-        'hello world!',
-        { x: 3, y: 3 },
-        { width: 3, height: 3 },
-        { family: 'Arial', size: 12, color: 'black' }
+        { content: 'hello world!',
+        position: { x: 3, y: 3 },
+        size: { width: 3, height: 3 },
+        font: { family: 'Arial', size: 12, color: 'black' }}
     )
     const slide3 = addTextObject(
         slide2,
         'textId2',
-        'hello world!',
-        { x: 4, y: 1 },
-        { width: 1, height: 1 },
-        { family: 'Arial', size: 12, color: 'black' }
+        { content: 'hello world!',
+        position: { x: 1, y: 3 },
+        size: { width: 7, height: 3 },
+        font: { family: 'Arial', size: 12, color: 'black' }}
     )
     const slide4 = addImageObject(
         slide3,
         'imageId1',
-        'testURL',
-        { x: 1, y: 2 },
-        { width: 1, height: 1 }
+        { src: 'testURL',
+        position: { x: 1, y: 2 },
+        size: { width: 1, height: 1 }}
     )
     return slide4
 }
