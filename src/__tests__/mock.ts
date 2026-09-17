@@ -8,10 +8,13 @@ const nullPresentation: Presentation = {
     slides: [],
 }
 
-const slide1: Slide = { id: '1', background: { color: 'white' }, objects: [] }
+const slide1: Slide = { id: '1', background: { color: 'white' }, objects: [] } 
 const slide2: Slide = { id: '2', background: { color: 'white' }, objects: [] }
 const slide3: Slide = { id: '3', background: { color: 'white' }, objects: [] }
 
+function createEmptySlide(id: string): Slide {
+    return { id, background: { color: 'white' }, objects: [] } 
+}
 
 function createPresentationWithSlides(): Presentation {
     return {
@@ -20,8 +23,8 @@ function createPresentationWithSlides(): Presentation {
     }
 }
 
-function createSlideWithObjects(): Slide {
-    const slide1: Slide = { id: '1', background: { color: 'white' }, objects: [] }
+function createSlideWithObjects(id: string): Slide {
+    const slide1: Slide = { id, background: { color: 'white' }, objects: [] }
     const slide2 = addTextObject(
         slide1,
         'textId1',
@@ -52,5 +55,5 @@ export {
     nullPresentation,
     createPresentationWithSlides,
     createSlideWithObjects,
-    slide1,
+    createEmptySlide,
 }

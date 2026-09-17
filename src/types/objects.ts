@@ -3,6 +3,7 @@ type SlideObject = TextObject | ImageObject
 type TextObject = BaseSlideObject & {
     content: string
     font: Font
+    type: 'text'
 }
 
 type Font = {
@@ -13,6 +14,7 @@ type Font = {
 
 type ImageObject = BaseSlideObject & {
     src: string
+    type: 'image'
 }
 
 type BaseSlideObject = Object & {

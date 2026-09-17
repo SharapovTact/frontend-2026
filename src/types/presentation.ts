@@ -4,7 +4,7 @@ type Presentation = {
     id: string,
     name: string,
     slides: Slide[],
-    activeSlide?: string,
+    activeSlideId?: string,
 }
 
 export {

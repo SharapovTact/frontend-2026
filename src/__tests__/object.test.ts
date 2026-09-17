@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { addTextObject, addImageObject, removeObject, moveObject, updateTextObjectStyle, resizeObject } from '../functions/object'
-import { slide1, createSlideWithObjects } from './mock';
+import { createSlideWithObjects, createEmptySlide } from './mock';
 import { Font, ImageObject, TextObject } from '../types/objects';
 
 describe('object actions', () => {
     it('adds text object', () => {
-        const slide = slide1
+        const slide = createEmptySlide('1')
         const originalObjectsOrder = [...slide.objects]
 
         const updatedSlide = addTextObject(
@@ -27,7 +27,7 @@ describe('object actions', () => {
     })
 
     it('adds image object', () => {
-        const slide = slide1
+        const slide = createEmptySlide('1')
         const originalObjectsOrder = [...slide.objects]
 
         const updatedSlide = addImageObject(
@@ -47,7 +47,7 @@ describe('object actions', () => {
     })
 
     it('removes object', () => {
-        const slide = createSlideWithObjects()
+        const slide = createSlideWithObjects('1')
         const originalObjectsOrder = [...slide.objects]
 
         const newSlide = removeObject(slide, 'textId1')
@@ -59,7 +59,7 @@ describe('object actions', () => {
     })
 
     it('moves object', () => {
-        const slide = createSlideWithObjects()
+        const slide = createSlideWithObjects('1')
         const originalObjectsOrder = [...slide.objects]
         const newPosition = { x: 5, y: 8 }
 
@@ -73,7 +73,7 @@ describe('object actions', () => {
     })
 
     it('resizes image object', () => {
-        const slide = createSlideWithObjects()
+        const slide = createSlideWithObjects('1')
         const originalObjectsOrder = [...slide.objects]
         const newSize = { width: 10, height: 10 }
 
@@ -87,7 +87,7 @@ describe('object actions', () => {
     })
 
     it('updates text style', () => {
-        const slide = createSlideWithObjects()
+        const slide = createSlideWithObjects('1')
         const originalObjectsOrder = [...slide.objects]
         const newStyle: Font = { family: 'Arial', size: 12, color: 'black' }
 

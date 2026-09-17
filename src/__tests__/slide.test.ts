@@ -6,7 +6,7 @@ import { Presentation } from '../types/presentation';
 import { Slide } from '../types/slide';
 
 describe('slide actions', () => {
-    it('adds slide', () => {
+    it('add slides', () => {
         const initialPresentation: Presentation = nullPresentation
         const countSlides = 3;
         const originalSlidesOrder = [...initialPresentation.slides]
@@ -55,7 +55,7 @@ describe('slide actions', () => {
 
         const presentation = setActiveSlide(initialPresentation, '1')
 
-        expect(presentation.activeSlide).toEqual('1')
+        expect(presentation.activeSlideId).toEqual('1')
         expect(presentation).not.toBe(initialPresentation)
     })
 

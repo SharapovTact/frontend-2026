@@ -38,7 +38,7 @@ function moveSlide(presentation: Presentation, slideId: string, newIndex: number
 function setActiveSlide(presentation: Presentation, slideId: string): Presentation {
     return {
         ...presentation,
-        activeSlide: slideId,
+        activeSlideId: slideId,
     }
 }
 
@@ -47,26 +47,25 @@ function duplicateSlide(
     slideId: string,
     newSlideId: string
 ): Presentation {
-    let isModified = false
-    const updatedSlides = presentation.slides.reduce<Slide[]>((acc, slide) => {
-        if (slide.id === slideId) {
-            isModified = true
-            const duplicatedSlide = {
-                ...structuredClone(slide),
-                id: newSlideId,
-            }
-            acc.push(slide, duplicatedSlide)
-        } else {
-            acc.push(slide)
-        }
-
-        return acc
-    }, [])
-    if (!isModified) {
-        return presentation
+    const slideIndex = presentation.slides.findIndex(
+        slide => slide.id === slideId
+    );
+    if (slideIndex === -1) {
+        return presentation;
     }
 
-    return updatePresentationSlides(presentation, updatedSlides)
+    const slide = presentation.slides[slideIndex];
+    const clonedSlide = structuredClone(slide);
+    clonedSlide.id = newSlideId;
+
+    return {
+        ...presentation,
+        slides: [
+            ...presentation.slides.slice(0, slideIndex + 1),
+            clonedSlide,
+            ...presentation.slides.slice(slideIndex + 1),
+        ],
+    };
 }
 
 export {

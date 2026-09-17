@@ -15,7 +15,7 @@ function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
     }
 }
 
-function addTextObject(
+function addTextObject( //TODO не больше трёх аргументов
     slide: Slide,
     id: string,
     content: string,
@@ -34,7 +34,7 @@ function addTextObject(
     return addObjectToSlide(slide, newObject)
 }
 
-function addImageObject(
+function addImageObject( //TODO не больше трёх аргументов
     slide: Slide,
     id: string,
     imageUrl: string,
@@ -86,7 +86,7 @@ function moveObject(
 function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
     let isModified = false
     const updatedObjects = slide.objects.map(object => {
-        if (object.id === objectId && object.type === 'image') {
+        if (object.id === objectId && (object.type === 'image' || object.type === 'text')) {
             isModified = true
             return { ...object, size }
         }
