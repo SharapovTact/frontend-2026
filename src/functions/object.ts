@@ -1,4 +1,4 @@
-import { Font, ImageObject, ImagePropeties, Position, Size, SlideObject, TextObject, TextPropeties } from "../types/objects";
+import { Font, ImageObject, Position, Size, SlideObject, TextObject } from "../types/objects";
 import { Slide } from "../types/slide";
 
 function addObjectToSlide(slide: Slide, newObject: SlideObject): Slide {
@@ -13,6 +13,19 @@ function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
         ...slide,
         objects: newObjects,
     }
+}
+
+type TextPropeties = {
+    content: string,
+    position: Position,
+    size: Size,
+    font: Font
+}
+
+type ImagePropeties = {
+    src: string,
+    position: Position,
+    size: Size,
 }
 
 function addTextObject(
@@ -56,16 +69,17 @@ function removeObject(slide: Slide, objectId: string): Slide {
     return updateSlideObjects(slide, filteredObjects)
 }
 
-function moveObject(
+function updateObjectProperty<T extends SlideObject>(
     slide: Slide,
     objectId: string,
-    position: Position
+    newProperties: Partial<T>
 ): Slide {
     let isModified = false;
+
     const updatedObjects = slide.objects.map(object => {
         if (object.id === objectId) {
             isModified = true
-            return { ...object, position }
+            return { ...object, ...newProperties }
         }
         return object
     })
@@ -77,43 +91,16 @@ function moveObject(
     return updateSlideObjects(slide, updatedObjects)
 }
 
+function moveObject(slide: Slide, objectId: string, position: Position): Slide {
+    return updateObjectProperty(slide, objectId, { position });
+}
 
 function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
-    let isModified = false
-    const updatedObjects = slide.objects.map(object => {
-        if (object.id === objectId && (object.type === 'image' || object.type === 'text')) {
-            isModified = true
-            return { ...object, size }
-        }
-        return object
-    })
-
-    if (!isModified) {
-        return slide
-    }
-
-    return updateSlideObjects(slide, updatedObjects)
+    return updateObjectProperty(slide, objectId, { size });
 }
 
-function updateTextObjectStyle(
-    slide: Slide,
-    objectId: string,
-    font: Font
-): Slide {
-    let isModified = false
-    const updatedObjects = slide.objects.map(object => {
-        if (object.id === objectId && object.type === 'text') {
-            isModified = true
-            return { ...object, font }
-        }
-        return object;
-    })
-
-    if (!isModified) {
-        return slide;
-    }
-
-    return updateSlideObjects(slide, updatedObjects)
+function updateTextObjectStyle(slide: Slide, objectId: string, font: Font): Slide {
+    return updateObjectProperty<TextObject>(slide, objectId, { font });
 }
 
 export {

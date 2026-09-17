@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { addSlide, removeSlides, moveSlide, setActiveSlide, duplicateSlide } from '../functions/slide'
+import { addSlide, removeSlides, moveSlide, duplicateSlide } from '../functions/slide'
 import { generateId } from '../functions/common'
 import { nullPresentation, createPresentationWithSlides } from './mock';
 import { Presentation } from '../types/presentation';
@@ -48,15 +48,6 @@ describe('slide actions', () => {
         expect(presentation).not.toBe(initialPresentation)
         expect(presentation.slides).not.toBe(initialPresentation.slides)
         expect(initialPresentation.slides).toEqual(originalSlidesOrder)
-    })
-
-    it('sets active slide', () => {
-        const initialPresentation: Presentation = createPresentationWithSlides()
-
-        const presentation = setActiveSlide(initialPresentation, '1')
-
-        expect(presentation.activeSlideId).toEqual('1')
-        expect(presentation).not.toBe(initialPresentation)
     })
 
     it('duplicates slide', () => {

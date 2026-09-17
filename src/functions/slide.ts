@@ -18,12 +18,15 @@ function addSlide(presentation: Presentation, id: string): Presentation {
     return updatePresentationSlides(presentation, [...(presentation.slides), slide])
 }
 
-function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {
-    return updatePresentationSlides(presentation, presentation.slides.filter(slide => !slideIds.includes(slide.id)))
+function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {//заэнтерить строку, длинная слишком
+    return updatePresentationSlides(
+        presentation, 
+        presentation.slides.filter(slide => !slideIds.includes(slide.id))
+    )
 }
 
 function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
-    const slides = [...presentation.slides]
+    const slides = structuredClone(presentation.slides)
     const currentIndex = slides.findIndex(slide => slide.id === slideId)
 
     if (currentIndex == -1) {
@@ -33,13 +36,6 @@ function moveSlide(presentation: Presentation, slideId: string, newIndex: number
     const [movedSlide] = slides.splice(currentIndex, 1);
     slides.splice(newIndex, 0, movedSlide);
     return updatePresentationSlides(presentation, slides)
-}
-
-function setActiveSlide(presentation: Presentation, slideId: string): Presentation {
-    return {
-        ...presentation,
-        activeSlideId: slideId,
-    }
 }
 
 function duplicateSlide(
@@ -72,6 +68,5 @@ export {
     addSlide,
     removeSlides,
     moveSlide,
-    setActiveSlide,
     duplicateSlide,
 }
