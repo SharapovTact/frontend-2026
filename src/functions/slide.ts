@@ -1,14 +1,20 @@
 import type { Presentation } from "../types/presentation";
 import { Slide, SolidBackground } from "../types/slide";
 
-function updatePresentationSlides(presentation: Presentation, newSlides: Slide[]): Presentation {
+function updatePresentationSlides(
+    presentation: Presentation, 
+    newSlides: Slide[]
+): Presentation {
     return {
         ...presentation,
         slides: newSlides,
     }
 }
 
-function addSlide(presentation: Presentation, id: string): Presentation {
+function addSlide(
+    presentation: Presentation, 
+    id: string
+): Presentation {
     const background: SolidBackground = { color: 'white' }
     const slide: Slide = {
         id,
@@ -18,14 +24,20 @@ function addSlide(presentation: Presentation, id: string): Presentation {
     return updatePresentationSlides(presentation, [...(presentation.slides), slide])
 }
 
-function removeSlides(presentation: Presentation, slideIds: string[]): Presentation {//заэнтерить строку, длинная слишком
+function removeSlides(
+    presentation: Presentation, 
+    slideIds: string[]): Presentation {
     return updatePresentationSlides(
         presentation, 
         presentation.slides.filter(slide => !slideIds.includes(slide.id))
     )
 }
 
-function moveSlide(presentation: Presentation, slideId: string, newIndex: number): Presentation {
+function moveSlide(
+    presentation: Presentation, 
+    slideId: string, 
+    newIndex: number
+): Presentation {
     const slides = structuredClone(presentation.slides)
     const currentIndex = slides.findIndex(slide => slide.id === slideId)
 

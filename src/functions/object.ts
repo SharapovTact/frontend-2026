@@ -1,14 +1,20 @@
 import { Font, ImageObject, Position, Size, SlideObject, TextObject } from "../types/objects";
 import { Slide } from "../types/slide";
 
-function addObjectToSlide(slide: Slide, newObject: SlideObject): Slide {
+function addObjectToSlide(
+    slide: Slide, 
+    newObject: SlideObject
+): Slide {
     return {
         ...slide,
         objects: [...slide.objects, newObject]
     }
 }
 
-function updateSlideObjects(slide: Slide, newObjects: SlideObject[]): Slide {
+function updateSlideObjects(
+    slide: Slide, 
+    newObjects: SlideObject[]
+): Slide {
     return {
         ...slide,
         objects: newObjects,
@@ -59,7 +65,10 @@ function addImageObject(
     return addObjectToSlide(slide, newObject)
 }
 
-function removeObject(slide: Slide, objectId: string): Slide {
+function removeObject(
+    slide: Slide, 
+    objectId: string
+): Slide {
     const filteredObjects = slide.objects.filter(object => object.id !== objectId)
 
     if (filteredObjects.length === slide.objects.length) {
@@ -91,15 +100,27 @@ function updateObjectProperty<T extends SlideObject>(
     return updateSlideObjects(slide, updatedObjects)
 }
 
-function moveObject(slide: Slide, objectId: string, position: Position): Slide {
+function moveObject(
+    slide: Slide, 
+    objectId: string, 
+    position: Position
+): Slide {
     return updateObjectProperty(slide, objectId, { position });
 }
 
-function resizeObject(slide: Slide, objectId: string, size: Size): Slide {
+function resizeObject(
+    slide: Slide, 
+    objectId: string, 
+    size: Size
+): Slide {
     return updateObjectProperty(slide, objectId, { size });
 }
 
-function updateTextObjectStyle(slide: Slide, objectId: string, font: Font): Slide {
+function updateTextObjectStyle(
+    slide: Slide, 
+    objectId: string, 
+    font: Font
+): Slide {
     return updateObjectProperty<TextObject>(slide, objectId, { font });
 }
 
