@@ -3,7 +3,7 @@ import { addImageObject, addTextObject } from "./functions/object";
 import { createPresentation } from "./functions/presentation";
 import { Presentation } from "./types/presentation";
 
-function createTestPresentation(): Presentation {
+function createTestPresentation(): Presentation { //TODO сделать index.tsx
     let presentation = createPresentation('Тестовая презентация', '1')
 
     let slide1 = presentation.slides[0];
@@ -52,7 +52,7 @@ function createTestPresentation(): Presentation {
         font: { family: 'Arial', size: 12, color: 'black' }}
     )
 
-    let slide3 = presentation.slides[1];
+    let slide3 = presentation.slides[2];
     slide3 = setSlideBackgroundColor(slide3, '#6b3c3c')
     slide3 = addTextObject(
         slide3, 
