@@ -1,15 +1,20 @@
-/*import { createTestPresentation } from './data';
+import { createRoot } from 'react-dom/client';
+import { App } from './components/App.js';
+//import { addEditorChangeHandler } from './editor.js';
+import { createTestPresentation } from './data.js';
+//import { setInitialState } from './editor.js';
 
-const presentation = createTestPresentation();
+const initialData = createTestPresentation();
+//setInitialState(initialData);
 
-const container = document.getElementById('root');
+const root = createRoot(document.getElementById('root')!);
 
-if (!container) {
-  throw new Error('Не найден элемент #root');
+function renderApp(): void {
+  root.render(<App presentation={initialData} />);
 }
 
-createRoot(container).render(
-  <React.StrictMode>
-    <pre>{JSON.stringify(presentation, null, 2)}</pre>
-  </React.StrictMode>
-);*/
+renderApp();
+
+// addEditorChangeHandler(() => {
+//   renderApp();
+// });

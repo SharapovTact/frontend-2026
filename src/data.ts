@@ -1,11 +1,13 @@
 import { setSlideBackgroundColor, setSlideBackgroundImage } from "./functions/background";
 import { addImageObject, addTextObject } from "./functions/object";
 import { createPresentation } from "./functions/presentation";
+import { addSlide } from "./functions/slide";
 import { Presentation } from "./types/presentation";
 
-function createTestPresentation(): Presentation { //TODO сделать index.tsx
+function createTestPresentation(): Presentation {
     let presentation = createPresentation('Тестовая презентация', '1')
 
+    presentation = addSlide(presentation, '1')
     let slide1 = presentation.slides[0];
     slide1 = setSlideBackgroundColor(slide1, '#f0f0f0')
     slide1 = addTextObject(
@@ -17,6 +19,7 @@ function createTestPresentation(): Presentation { //TODO сделать index.ts
         font: { family: 'Arial', size: 36, color: 'black' }}
     )
 
+    presentation = addSlide(presentation, '2')
     let slide2 = presentation.slides[1];
     slide2 = setSlideBackgroundImage(slide2, 'image.png')
     slide2 = addTextObject(
@@ -52,6 +55,7 @@ function createTestPresentation(): Presentation { //TODO сделать index.ts
         font: { family: 'Arial', size: 12, color: 'black' }}
     )
 
+    presentation = addSlide(presentation, '3')
     let slide3 = presentation.slides[2];
     slide3 = setSlideBackgroundColor(slide3, '#6b3c3c')
     slide3 = addTextObject(
@@ -70,7 +74,10 @@ function createTestPresentation(): Presentation { //TODO сделать index.ts
         size: { width: 1, height: 1 }}
     )
     
-    return presentation;
+    return { 
+        ...presentation, 
+        slides: [slide1, slide2, slide3]
+    }
 }
 
 export {
