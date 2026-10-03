@@ -1,0 +1,15 @@
+.textObject,
+.imageObject {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.textObject {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.imageObject {
+    object-fit: contain;
+    pointer-events: none;
+}
