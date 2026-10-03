@@ -1,20 +1,25 @@
+import './index.css';
+
 import { createRoot } from 'react-dom/client';
 import { App } from './components/App.js';
-//import { addEditorChangeHandler } from './editor.js';
+import { addEditorChangeHandler, getState } from './editor.js';
 import { createTestPresentation } from './data.js';
-//import { setInitialState } from './editor.js';
+import { setInitialState } from './editor.js';
 
 const initialData = createTestPresentation();
-//setInitialState(initialData);
+setInitialState(initialData);
 
 const root = createRoot(document.getElementById('root')!);
 
 function renderApp(): void {
-  root.render(<App presentation={initialData} />);
+  const currentPresentation = getState();
+  if (currentPresentation) {
+    root.render(<App presentation={currentPresentation} />);
+  }
 }
 
 renderApp();
 
-// addEditorChangeHandler(() => {
-//   renderApp();
-// });
+addEditorChangeHandler(() => {
+  renderApp();
+});

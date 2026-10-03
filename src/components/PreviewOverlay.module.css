@@ -1,0 +1,35 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.95);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #ffffff;
+    background-color: #ef4444;
+    border: none;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    background-color: #dc2626;
+}
+
+.slideWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
