@@ -1,16 +1,15 @@
 import styles from "./App.module.css";
 
-import { getPreviewMode, setPreviewMode } from "../editor"
-import { Presentation } from "../types/presentation"
-import { PreviewOverlay } from "./PreviewOverlay"
-import { SlideList } from "./SlideList"
-import { Toolbar } from "./Toolbar"
-import { Workspace } from "./Workspace"
+import { getPreviewMode, setPreviewMode } from "../../editor"
+import { Presentation } from "../../types/presentation"
+import { PreviewOverlay } from "../PreviewOverlay/PreviewOverlay"
+import { SlideList } from "../SlideList/SlideList"
+import { Toolbar } from "../Toolbar/Toolbar"
+import { Workspace } from "../Workspace/Workspace"
 
 type AppProps = {
     presentation: Presentation
 }
-
 function App({ presentation }: AppProps) {
     if (getPreviewMode()) {
         return (

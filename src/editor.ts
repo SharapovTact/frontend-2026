@@ -36,21 +36,53 @@ function getState(): Presentation | null {
   return currentPresentation
 }
 
-let isPreviewMode = false
-function setPreviewMode(mode: boolean): void {
-  isPreviewMode = mode
+type ViewModel = {
+  isPreviewMode: boolean
+  activeSlideID: string
+}
+
+let viewModel: ViewModel = {
+  isPreviewMode: false,
+  activeSlideID: '1',
+}
+//viewModel - объект с промежуточными данными 
+//Сделать с viewModel переключение слайдов, создание объектов
+
+function getPreviewMode(): boolean {
+  return viewModel.isPreviewMode
+}
+
+function setPreviewMode(state: boolean) {
+  viewModel.isPreviewMode = state
+  callChangeHandler() //TODO придумать так, чтобы не было этой функции
+}// TODO может расширить диспатч или создать аналог
+
+function getActiveSlideID(): string {
+  return viewModel.activeSlideID
+}
+
+function setActiveSlideID(slideId: string) {
+  viewModel.activeSlideID = slideId
   callChangeHandler()
 }
 
-function getPreviewMode(): boolean {
-  return isPreviewMode
+//TODO доделать создание слайда
+function createSlide(presentation: Presentation) { 
+  //presentation.slides.append(createEmptySlide())
 }
+
+//TODO сделать создание текста (хардкод)
+//TODO сделать создание картинки (харкод)
 
 export { 
   setInitialState, 
   getState, 
   dispatch, 
   addEditorChangeHandler,
+
   setPreviewMode,
   getPreviewMode,
+  setActiveSlideID,
+  getActiveSlideID,
+
 };

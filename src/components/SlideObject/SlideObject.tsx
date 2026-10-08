@@ -1,12 +1,12 @@
 import styles from './SlideObject.module.css'
-import { SlideObject } from "../types/objects"
+import { SlideObject } from "../../types/objects"
 
 
 type SlideObjectProps = {
     object: SlideObject
 }
 
-function SlideObject({object}: SlideObjectProps) {
+function SlideObject({ object }: SlideObjectProps) {
     const positionStyle: React.CSSProperties = {
         position: 'absolute',
         left: `${object.position.x}px`,

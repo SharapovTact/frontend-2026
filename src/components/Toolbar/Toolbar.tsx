@@ -1,5 +1,5 @@
-import type { Presentation } from '../types/presentation';
-import { setPreviewMode } from '../editor';
+import type { Presentation } from '../../types/presentation';
+import { setPreviewMode } from '../../editor';
 import styles from './Toolbar.module.css';
 
 type ToolbarProps = {

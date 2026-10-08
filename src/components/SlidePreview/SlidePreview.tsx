@@ -1,20 +1,20 @@
 import styles from './SlidePreview.module.css';
 
-import { Slide } from "../types/slide"
-import { SlideObject } from "./SlideObject";
+import { Slide } from "../../types/slide"
+import { SlideObject } from "../SlideObject/SlideObject";
 
 type SlidePreviewProps = {
     slide: Slide
 }
 
-function SlidePreview({slide}: SlidePreviewProps) {
+function SlidePreview({ slide }: SlidePreviewProps) {
     const backgroundStyle: React.CSSProperties = {}
     const background = slide.background;
 
-    if ('color' in background) {
+    if ('color' in background) { //TODO добавить к background - type
         backgroundStyle.backgroundColor = background.color;
-    } 
-    else if ('src' in background) {
+    }
+    else if ('src' in background) {//TODO переделать in на проверку по типам
         backgroundStyle.backgroundImage = `url("${background.src}")`;
         backgroundStyle.backgroundSize = '100% 100%';
         backgroundStyle.backgroundPosition = 'center';
@@ -36,6 +36,6 @@ function SlidePreview({slide}: SlidePreviewProps) {
     );
 }
 
-export { 
+export {
     SlidePreview,
 };

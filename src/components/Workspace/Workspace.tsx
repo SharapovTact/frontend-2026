@@ -1,5 +1,6 @@
-import type { Presentation } from '../types/presentation';
-import { SlidePreview } from './SlidePreview';
+import { getActiveSlideID } from '../../editor';
+import type { Presentation } from '../../types/presentation';
+import { SlidePreview } from '../SlidePreview/SlidePreview';
 import styles from './Workspace.module.css';
 
 type WorkspaceProps = {
@@ -7,7 +8,8 @@ type WorkspaceProps = {
 };
 
 function Workspace({ presentation }: WorkspaceProps) {
-    const activeSlide = presentation.slides[1];
+    const activeSlideID = getActiveSlideID();
+    const activeSlide = presentation.slides.find(s => s.id === activeSlideID);
 
     if (!activeSlide) {
         return (

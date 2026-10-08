@@ -1,6 +1,6 @@
-import type { Presentation } from '../types/presentation';
-import { SlidePreview } from './SlidePreview';
-import { setPreviewMode } from '../editor';
+import type { Presentation } from '../../types/presentation';
+import { SlidePreview } from '../SlidePreview/SlidePreview';
+import { getActiveSlideID, setPreviewMode } from '../../editor';
 import styles from './PreviewOverlay.module.css';
 
 type PreviewOverlayProps = {
@@ -9,9 +9,10 @@ type PreviewOverlayProps = {
 };
 
 function PreviewOverlay({ presentation, onClose }: PreviewOverlayProps) {
-    const slide = presentation.slides[0];
+    const activeSlideID = getActiveSlideID();
+    const activeSlide = presentation.slides.find(s => s.id === activeSlideID);
 
-    if (!slide) {
+    if (!activeSlide) {
         return null;
     }
 
@@ -25,7 +26,7 @@ function PreviewOverlay({ presentation, onClose }: PreviewOverlayProps) {
             </button>
 
             <div className={styles.slideWrapper}>
-                <SlidePreview slide={slide} />
+                <SlidePreview slide={activeSlide} />
             </div>
         </div>
     );
