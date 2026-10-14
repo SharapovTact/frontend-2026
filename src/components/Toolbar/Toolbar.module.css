@@ -1,0 +1,47 @@
+.toolbar {
+    height: 56px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.button {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.primaryButton {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+.primaryButton:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}

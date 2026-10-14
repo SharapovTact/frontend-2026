@@ -9,14 +9,17 @@ type Slide = {
 type Background = SolidBackground | ImageBackground | GradientBackground
 
 type SolidBackground = {
+    type: "solid"
     color: string
 }
 
 type ImageBackground = {
+    type: "image"
     src: string
 }
 
 type GradientBackground = {
+    type: "gradient"
     colors: string[]
     angle?: number
 }

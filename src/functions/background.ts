@@ -3,28 +3,28 @@ import { Slide } from "../types/slide"
 function setSlideBackgroundColor(slide: Slide, color: string): Slide {
     return {
         ...slide,
-        background: { color },
+        background: {type: 'solid', color },
     }
 }
 
 function setSlideBackgroundImage(slide: Slide, imageUrl: string): Slide {
     return {
         ...slide,
-        background: { src: imageUrl },
+        background: {type: 'image', src: imageUrl },
     }
 }
 
 function setSlideBackgroundGradient(slide: Slide, colors: string[], angle?: number): Slide {
     return {
         ...slide,
-        background: { colors: [...colors], angle }
+        background: {type: 'gradient', colors: [...colors], angle }
     }
 }
 
 function clearSlideBackground(slide: Slide): Slide {
     return {
         ...slide,
-        background: { color: 'white' }
+        background: {type: 'solid', color: 'white' }
     }
 }
 
