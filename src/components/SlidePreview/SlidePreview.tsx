@@ -11,20 +11,24 @@ function SlidePreview({ slide }: SlidePreviewProps) {
     const backgroundStyle: React.CSSProperties = {}
     const background = slide.background;
 
-    if ('color' in background) { //TODO добавить к background - type
-        backgroundStyle.backgroundColor = background.color;
-    }
-    else if ('src' in background) {//TODO переделать in на проверку по типам
-        backgroundStyle.backgroundImage = `url("${background.src}")`;
-        backgroundStyle.backgroundSize = '100% 100%';
-        backgroundStyle.backgroundPosition = 'center';
-        backgroundStyle.backgroundRepeat = 'no-repeat';
-    }
-    else if ('colors' in background) {
-        const angle = background.angle ?? 180;
-        const colors = background.colors.join(', ');
-        backgroundStyle.backgroundImage = `linear-gradient(${angle}deg, ${colors})`;
-        //linear-gradient(180deg, #ff0000, #0000ff)
+    switch (background.type) {
+        case 'solid':
+            backgroundStyle.backgroundColor = background.color;
+            break;
+
+        case 'image':
+            backgroundStyle.backgroundImage = `url("${background.src}")`;
+            backgroundStyle.backgroundSize = '100% 100%';
+            backgroundStyle.backgroundPosition = 'center';
+            backgroundStyle.backgroundRepeat = 'no-repeat';
+            break;
+
+        case 'gradient': {
+            const angle = background.angle ?? 180;
+            const colors = background.colors.join(', ');
+            backgroundStyle.backgroundImage = `linear-gradient(${angle}deg, ${colors})`;
+            break;
+        }
     }
 
     return (
