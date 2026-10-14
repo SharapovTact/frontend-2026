@@ -68,7 +68,7 @@ function setActiveSlideID(slideId: string) {
 
 //TODO доделать создание слайда
 function createSlide(presentation: Presentation) { 
-  //presentation.slides.append(createEmptySlide())
+  presentation.slides.append(createEmptySlide())
 }
 
 //TODO сделать создание текста (хардкод)
@@ -84,5 +84,6 @@ export {
   getPreviewMode,
   setActiveSlideID,
   getActiveSlideID,
+  createSlide,
 
 };
