@@ -2,7 +2,7 @@ import { createTestPresentation } from './data'
 import { generateId } from './functions/common'
 import { addImageObject } from './functions/object'
 import { addSlide } from './functions/slide'
-import { ImageObject, SlideObject } from './types/objects'
+import { ImageObject, SlideObject, TextObject } from './types/objects'
 import type { Presentation } from './types/presentation'
 
 let editorChangeHandler: (() => void) | null = null
@@ -100,8 +100,6 @@ function createImageObject(): void {
     }
   })
 }
-
-import { TextObject } from './types/objects'
 
 function createTextObject(): void {
   dispatch((prev) => {
