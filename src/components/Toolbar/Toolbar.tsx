@@ -1,5 +1,5 @@
 import type { Presentation } from '../../types/presentation';
-import { setPreviewMode } from '../../editor';
+import { createImageObject, createSlide, createTextObject, getState, setPreviewMode } from '../../editor';
 import styles from './Toolbar.module.css';
 
 type ToolbarProps = {
@@ -14,13 +14,19 @@ function Toolbar({ presentation }: ToolbarProps) {
             </div>
 
             <div className={styles.actions}>
-                <button className={styles.button}>
+                <button
+                    className={styles.button}
+                    onClick={() => createSlide()}>
                     + Слайд
                 </button>
-                <button className={styles.button}>
+                <button 
+                    className={styles.button}
+                    onClick={() => createTextObject()}>
                     + Текст
                 </button>
-                <button className={styles.button}>
+                <button 
+                    className={styles.button}
+                    onClick={() => createImageObject()}>
                     + Картинка
                 </button>
                 <button
