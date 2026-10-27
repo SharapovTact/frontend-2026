@@ -16,17 +16,17 @@ function Toolbar({ presentation }: ToolbarProps) {
             <div className={styles.actions}>
                 <button
                     className={styles.button}
-                    onClick={() => createSlide()}>
+                    onClick={createSlide}>
                     + Слайд
                 </button>
                 <button 
                     className={styles.button}
-                    onClick={() => createTextObject()}>
+                    onClick={createTextObject}>
                     + Текст
                 </button>
                 <button 
                     className={styles.button}
-                    onClick={() => createImageObject()}>
+                    onClick={createImageObject}>
                     + Картинка
                 </button>
                 <button
