@@ -5,10 +5,10 @@ import { SlideObject } from "../../types/objects"
 type SlideObjectProps = {
     object: SlideObject
     isSelected?: boolean
-    onSelect?: (e: React.MouseEvent) => void;
+    onMouseDown?: (e: React.MouseEvent) => void;
 }
 
-function SlideObject({ object, isSelected = false, onSelect }: SlideObjectProps) {
+function SlideObject({ object, isSelected = false, onMouseDown }: SlideObjectProps) {
     const positionStyle: React.CSSProperties = {
         position: 'absolute',
         left: `${object.position.x}px`,
@@ -29,7 +29,7 @@ function SlideObject({ object, isSelected = false, onSelect }: SlideObjectProps)
                     fontSize: `${object.font.size}px`,
                     color: object.font.color,
                 }}
-                onClick={onSelect}
+                onMouseDown={onMouseDown}
             >
                 {object.content}
             </div>
@@ -42,7 +42,7 @@ function SlideObject({ object, isSelected = false, onSelect }: SlideObjectProps)
                 alt=""
                 className={styles.imageObject}
                 style={positionStyle}
-                onClick={onSelect}
+                onMouseDown={onMouseDown}
             />
         )
     }
