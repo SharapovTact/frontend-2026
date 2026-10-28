@@ -5,9 +5,11 @@ import { SlideObject } from "../SlideObject/SlideObject";
 
 type SlidePreviewProps = {
     slide: Slide
+    selectedIds?: string[]
+    onObjectSelect?: (e: React.MouseEvent, objectId: string) => void
 }
 
-function SlidePreview({ slide }: SlidePreviewProps) {
+function SlidePreview({ slide, selectedIds = [], onObjectSelect }: SlidePreviewProps) {
     const backgroundStyle: React.CSSProperties = {}
     const background = slide.background;
 
@@ -34,7 +36,12 @@ function SlidePreview({ slide }: SlidePreviewProps) {
     return (
         <div className={styles.slide} style={backgroundStyle}>
             {slide.objects.map((object) => (
-                <SlideObject key={object.id} object={object} />
+                <SlideObject 
+                    key={object.id} 
+                    object={object} 
+                    isSelected={selectedIds.includes(object.id)}
+                    onSelect={onObjectSelect ? (e) => onObjectSelect(e, object.id) : undefined}
+                />
             ))}
         </div>
     );
