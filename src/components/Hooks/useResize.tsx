@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { dispatch } from "../../editor"
+import { dispatch, setWrapperState } from "../../editor"
 import { Slide } from "../../types/slide"
 
 const MIN_SIZE = 30
@@ -34,6 +34,7 @@ function useResize({ activeSlide, selectedIds }: UseResizeArgs) {
         if (!obj) {
             return
         }
+        setWrapperState(true);
         e.preventDefault()
 
         resizeRef.current = {
@@ -57,6 +58,7 @@ function useResize({ activeSlide, selectedIds }: UseResizeArgs) {
 
         const handleMouseUp = (e: MouseEvent) => {
             const info = resizeRef.current
+            setWrapperState(false);
             if (info) {
 
                 const width = Math.max(MIN_SIZE, info.startWidth + e.clientX - info.startX)

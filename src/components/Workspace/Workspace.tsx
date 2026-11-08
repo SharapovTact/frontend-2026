@@ -1,5 +1,5 @@
 
-import { getActiveSlideID } from '../../editor';
+import { getActiveSlideID, getWrapperState } from '../../editor';
 import type { Presentation } from '../../types/presentation';
 import { SlidePreview } from '../SlidePreview/SlidePreview';
 import styles from './Workspace.module.css';
@@ -15,7 +15,7 @@ type WorkspaceProps = {
 function Workspace({ presentation }: WorkspaceProps) {
     const activeSlideID = getActiveSlideID();
     const activeSlide = presentation.slides.find(s => s.id === activeSlideID)
-
+    let isResizing: boolean = getWrapperState();
     const { selectedIds, setSelectedIds, clearSelection } = useSelect({
         activeSlide
     })
@@ -50,7 +50,9 @@ function Workspace({ presentation }: WorkspaceProps) {
     }
 
     return (
-        <main className={styles.workspace} onMouseDown={handleCanvasMouseDown}>
+        <main className={styles.workspace} 
+            onMouseDown={handleCanvasMouseDown}
+            style={{ cursor: isResizing ? 'nwse-resize' : undefined }}>
             <div className={styles.slideWrapper}>
                 <SlidePreview
                     slide={displaySlide}

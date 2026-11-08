@@ -15,7 +15,7 @@ function TextStylePanel({presentation}: TextStylePanelProps) {
         activeSlide
     })
 
-    if (selectedIds.length == 1) {
+    if (true) { //selectedIds.length == 1
         return (
             <aside className={styles.panel}>
                 <div className={styles.field}>

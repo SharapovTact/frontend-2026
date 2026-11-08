@@ -21,16 +21,16 @@ const defaultPresentation: Presentation = createTestPresentation()
 
 type ViewModel = {
   isPreviewMode: boolean
+  isWrapping: boolean
   activeSlideID: string
   presentation: Presentation
-  selectedObjects: string[]
 }
 
 let viewModel: ViewModel = {
   isPreviewMode: false,
+  isWrapping: false,
   activeSlideID: '1',
   presentation: defaultPresentation,
-  selectedObjects: [],
 }
 
 type ViewModelModifier = (prev: ViewModel) => Partial<ViewModel>
@@ -68,12 +68,12 @@ function setActiveSlideID(slideId: string): void {
   dispatch(() => ({ activeSlideID: slideId }))
 }
 
-function getSelectedObjects(): string[] {
-  return viewModel.selectedObjects
+function getWrapperState(): boolean {
+  return viewModel.isWrapping
 }
-//function setSelectedObjects(selectedObjects: string[]): void {
-  //viewModel.
-//}
+function setWrapperState(isWrapping: boolean): void {
+  viewModel.isWrapping = isWrapping;
+}
 
 function createSlide(): void {
   dispatch((prev) => ({
@@ -156,4 +156,6 @@ export {
   createSlide,
   createImageObject,
   createTextObject,
+  getWrapperState,
+  setWrapperState,
 }
