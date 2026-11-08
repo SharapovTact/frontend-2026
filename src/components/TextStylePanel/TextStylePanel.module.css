@@ -1,0 +1,52 @@
+.panel {
+    width: 240px;
+    padding: 16px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.select {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 14px;
+    color: #334155;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+    outline: none;
+}
+
+.select:hover {
+    background-color: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.sizeInput {
+    flex: 1;
+    min-width: 0;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #334155;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    outline: none;
+}
+
+.colorInput {
+    width: 48px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #cbd5e1;
+    background: none;
+    cursor: pointer;
+}

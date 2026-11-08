@@ -6,6 +6,7 @@ import { PreviewOverlay } from "../PreviewOverlay/PreviewOverlay"
 import { SlideList } from "../SlideList/SlideList"
 import { Toolbar } from "../Toolbar/Toolbar"
 import { Workspace } from "../Workspace/Workspace"
+import { TextStylePanel } from "../TextStylePanel/TextStylePanel";
 
 type AppProps = {
     presentation: Presentation
@@ -26,6 +27,7 @@ function App({ presentation }: AppProps) {
                 <SlideList presentation={presentation} />
                 <Workspace presentation={presentation} />
             </div>
+            <TextStylePanel presentation={presentation}/>
         </div>
     );
 }

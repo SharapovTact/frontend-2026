@@ -10,13 +10,14 @@ type ResizeInfo = {
     startY: number
     startWidth: number
     startHeight: number
-}
+}//TODO Сделать так, чтобы курсор не менялся при быстром ресайзе
 
 type UseResizeArgs = {
     activeSlide: Slide | undefined
+    selectedIds: string[]
 }
 
-function useResize({ activeSlide }: UseResizeArgs) {
+function useResize({ activeSlide, selectedIds }: UseResizeArgs) {
     const resizeRef = useRef<ResizeInfo | null>(null)
     const [sizeDelta, setSizeDelta] = useState({ width: 0, height: 0 })
 
@@ -24,8 +25,12 @@ function useResize({ activeSlide }: UseResizeArgs) {
         if (e.defaultPrevented) {
             return
         }
+        if (selectedIds.length > 1) {
+            return
+        }
+
         const obj = activeSlide?.objects.find((o) => o.id === objectId)
-        
+
         if (!obj) {
             return
         }
@@ -39,23 +44,23 @@ function useResize({ activeSlide }: UseResizeArgs) {
             startHeight: obj.size.height,
         }
 
-        const handleMouseMove = (ev: MouseEvent) => {
+        const handleMouseMove = (e: MouseEvent) => {
             const info = resizeRef.current
             if (!info) {
                 return
             }
             setSizeDelta({
-                width: ev.clientX - info.startX,
-                height: ev.clientY - info.startY,
+                width: e.clientX - info.startX,
+                height: e.clientY - info.startY,
             })
         }
 
-        const handleMouseUp = (ev: MouseEvent) => {
+        const handleMouseUp = (e: MouseEvent) => {
             const info = resizeRef.current
             if (info) {
 
-                const width = Math.max(MIN_SIZE, info.startWidth + ev.clientX - info.startX)
-                const height = Math.max(MIN_SIZE, info.startHeight + ev.clientY - info.startY)
+                const width = Math.max(MIN_SIZE, info.startWidth + e.clientX - info.startX)
+                const height = Math.max(MIN_SIZE, info.startHeight + e.clientY - info.startY)
 
                 dispatch((prev) => {
                     const slideIndex = prev.presentation.slides.findIndex(
@@ -71,8 +76,8 @@ function useResize({ activeSlide }: UseResizeArgs) {
                     )
                     const slides = [...prev.presentation.slides]
                     slides[slideIndex] = { ...slide, objects }
-                    return { 
-                        presentation: { ...prev.presentation, slides } 
+                    return {
+                        presentation: { ...prev.presentation, slides }
                     }
                 })
             }

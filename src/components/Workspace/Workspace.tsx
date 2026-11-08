@@ -30,7 +30,8 @@ function Workspace({ presentation }: WorkspaceProps) {
     })
 
     const { displaySlide: resizeDisplaySlide, handleResizeMouseDown } = useResize({
-        activeSlide
+        activeSlide,
+        selectedIds
     })
 
     const displaySlide = resizeDisplaySlide !== activeSlide ? resizeDisplaySlide : dragDisplaySlide
@@ -55,7 +56,7 @@ function Workspace({ presentation }: WorkspaceProps) {
                     slide={displaySlide}
                     selectedIds={selectedIds}
                     onObjectMouseDown={handleObjectMouseDown}
-                    onResizeMouseDown={handleResizeMouseDown}
+                    onResizeMouseDown={selectedIds.length == 1 ? handleResizeMouseDown : undefined}
                 />
             </div>
         </main>

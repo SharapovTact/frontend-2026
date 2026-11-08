@@ -23,12 +23,14 @@ type ViewModel = {
   isPreviewMode: boolean
   activeSlideID: string
   presentation: Presentation
+  selectedObjects: string[]
 }
 
 let viewModel: ViewModel = {
   isPreviewMode: false,
   activeSlideID: '1',
   presentation: defaultPresentation,
+  selectedObjects: [],
 }
 
 type ViewModelModifier = (prev: ViewModel) => Partial<ViewModel>
@@ -65,6 +67,13 @@ function getActiveSlideID(): string {
 function setActiveSlideID(slideId: string): void {
   dispatch(() => ({ activeSlideID: slideId }))
 }
+
+function getSelectedObjects(): string[] {
+  return viewModel.selectedObjects
+}
+//function setSelectedObjects(selectedObjects: string[]): void {
+  //viewModel.
+//}
 
 function createSlide(): void {
   dispatch((prev) => ({
