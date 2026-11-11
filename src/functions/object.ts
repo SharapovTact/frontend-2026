@@ -124,6 +124,14 @@ function updateTextObjectStyle(
     return updateObjectProperty<TextObject>(slide, objectId, { font });
 }
 
+function updateTextContent(
+    slide: Slide,
+    objectId: string,
+    content: string
+): Slide {
+    return updateObjectProperty<TextObject>(slide, objectId, { content });
+}
+
 export {
     addTextObject,
     addImageObject,
@@ -131,4 +139,5 @@ export {
     moveObject,
     updateTextObjectStyle,
     resizeObject,
+    updateTextContent,
 }

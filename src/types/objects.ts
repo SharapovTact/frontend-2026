@@ -17,6 +17,7 @@ type ImageObject = BaseSlideObject & {
     type: 'image'
 }
 
+
 type BaseSlideObject = {
     position: Position
     size: Size

@@ -1,25 +1,30 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Slide } from "../../types/slide"
+import { getSelectedSlideObjectsIds, setSelectedSlideObjectsIds } from "../../editor"
 
 type UseSelectArgs = {
     activeSlide: Slide | undefined
 }
 
 function useSelect({ activeSlide }: UseSelectArgs) {
-    const [selectedIds, setSelectedIds] = useState<string[]>([])
+    const selectedIds = getSelectedSlideObjectsIds()
     const activeSlideID = activeSlide?.id
 
-    useEffect(() => {
-        setSelectedIds([])
-    }, [activeSlideID])
+    const clearSelection = () => {
+        if (getSelectedSlideObjectsIds().length > 0) {
+            setSelectedSlideObjectsIds([])
+        }
+    }
 
-    const clearSelection = () => setSelectedIds([])
+    useEffect(() => {
+        clearSelection()
+    }, [activeSlideID])
 
     return {
         selectedIds,
-        setSelectedIds,
+        setSelectedIds: setSelectedSlideObjectsIds,
         clearSelection,
     }
 }
 
-export {useSelect}
+export { useSelect }

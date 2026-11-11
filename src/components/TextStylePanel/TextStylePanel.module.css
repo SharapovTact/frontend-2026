@@ -1,5 +1,5 @@
 .panel {
-    width: 240px;
+    width: 500px;
     padding: 16px;
     background-color: #ffffff;
     display: flex;
@@ -49,4 +49,12 @@
     border: 1px solid #cbd5e1;
     background: none;
     cursor: pointer;
+}
+
+.textArea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    font: inherit;
+    padding: 4px 6px;
 }

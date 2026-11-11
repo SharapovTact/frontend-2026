@@ -4,6 +4,7 @@ import { addImageObject } from './functions/object'
 import { addSlide } from './functions/slide'
 import { ImageObject, SlideObject, TextObject } from './types/objects'
 import type { Presentation } from './types/presentation'
+import { Slide } from './types/slide'
 
 let editorChangeHandler: (() => void) | null = null
 
@@ -23,12 +24,14 @@ type ViewModel = {
   isPreviewMode: boolean
   isWrapping: boolean
   activeSlideID: string
+  selectedSlideObjectsIds: string[]
   presentation: Presentation
 }
 
 let viewModel: ViewModel = {
   isPreviewMode: false,
   isWrapping: false,
+  selectedSlideObjectsIds: [],
   activeSlideID: '1',
   presentation: defaultPresentation,
 }
@@ -72,7 +75,14 @@ function getWrapperState(): boolean {
   return viewModel.isWrapping
 }
 function setWrapperState(isWrapping: boolean): void {
-  viewModel.isWrapping = isWrapping;
+  viewModel.isWrapping = isWrapping
+}
+
+function getSelectedSlideObjectsIds(): string[] {
+  return viewModel.selectedSlideObjectsIds
+}
+function setSelectedSlideObjectsIds(selectedSlideObjectsIds: string[]): void {
+  dispatch(() => ({ selectedSlideObjectsIds: selectedSlideObjectsIds }))
 }
 
 function createSlide(): void {
@@ -158,4 +168,6 @@ export {
   createTextObject,
   getWrapperState,
   setWrapperState,
+  getSelectedSlideObjectsIds,
+  setSelectedSlideObjectsIds,
 }

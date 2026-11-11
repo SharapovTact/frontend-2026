@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 
-import { getPreviewMode, setPreviewMode } from "../../editor"
+import { getPreviewMode, getSelectedSlideObjectsIds, setPreviewMode } from "../../editor"
 import { Presentation } from "../../types/presentation"
 import { PreviewOverlay } from "../PreviewOverlay/PreviewOverlay"
 import { SlideList } from "../SlideList/SlideList"
@@ -27,7 +27,7 @@ function App({ presentation }: AppProps) {
                 <SlideList presentation={presentation} />
                 <Workspace presentation={presentation} />
             </div>
-            <TextStylePanel presentation={presentation}/>
+            <TextStylePanel presentation={presentation} selectedIds={getSelectedSlideObjectsIds()}/>
         </div>
     );
 }
