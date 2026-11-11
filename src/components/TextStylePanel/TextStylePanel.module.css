@@ -1,5 +1,5 @@
 .panel {
-    width: 500px;
+    width: 700px;
     padding: 16px;
     background-color: #ffffff;
     display: flex;
@@ -57,4 +57,29 @@
     resize: vertical;
     font: inherit;
     padding: 4px 6px;
+}
+
+.sizeGroup {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sizeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    color: #334155;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+}
+
+.sizeButton:hover:not(:disabled) {
+    background-color: #e2e8f0;
+}
+
+.sizeButton:disabled {
+    opacity: 0.4;
+    cursor: default;
 }
