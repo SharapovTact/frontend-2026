@@ -2,9 +2,12 @@ import { ChangeEvent, useCallback, useRef } from 'react'
 import { dispatch } from '../../editor'
 import { generateId } from '../../functions/common'
 import { addImageObject } from '../../functions/object'
+import { ImageBackground } from '../../types/slide'
 
 const DEFAULT_POSITION = { x: 200, y: 150 }
 const DEFAULT_SIZE = { width: 300, height: 200 }
+
+type PictureTarget = 'object' | 'background'
 
 function addPictureToActiveSlide(src: string) {
     dispatch((prev) => {
@@ -23,11 +26,35 @@ function addPictureToActiveSlide(src: string) {
     })
 }
 
-function useAddPicture() {
+function setPictureBackgroundToActiveSlide(src: string) {
+    dispatch((prev) => {
+        const slideIndex = prev.presentation.slides.findIndex(s => s.id === prev.activeSlideID)
+        if (slideIndex === -1) return {}
+
+        const background: ImageBackground = { type: 'image', src }
+        const updatedSlide = { ...prev.presentation.slides[slideIndex], background }
+
+        const updatedSlides = [...prev.presentation.slides]
+        updatedSlides[slideIndex] = updatedSlide
+        return { presentation: { ...prev.presentation, slides: updatedSlides } }
+    })
+}
+
+function usePicture() {
     const fileInputRef = useRef<HTMLInputElement>(null)
+    const targetRef = useRef<PictureTarget>('object')
+
+    const openFileDialog = (target: PictureTarget) => {
+        targetRef.current = target
+        fileInputRef.current?.click()
+    }
 
     const handleAddPictureClick = () => {
-        fileInputRef.current?.click()
+        openFileDialog('object')
+    }
+
+    const handleBackgroundClick = () => {
+        openFileDialog('background')
     }
 
     const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +67,11 @@ function useAddPicture() {
 
         const reader = new FileReader()
         reader.onload = () => {
-            if (typeof reader.result === 'string') {
+            if (typeof reader.result !== 'string') return
+
+            if (targetRef.current === 'background') {
+                setPictureBackgroundToActiveSlide(reader.result)
+            } else {
                 addPictureToActiveSlide(reader.result)
             }
         }
@@ -50,8 +81,9 @@ function useAddPicture() {
     return {
         fileInputRef,
         handleAddPictureClick,
+        handleBackgroundClick,
         handleFileChange,
     }
 }
 
-export { useAddPicture }
+export { usePicture }

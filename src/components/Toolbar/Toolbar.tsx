@@ -1,6 +1,6 @@
 import type { Presentation } from '../../types/presentation';
 import { createSlide, createTextObject, setPreviewMode } from '../../editor';
-import { useAddPicture } from '../Hooks/useAddPicture';
+import { usePicture } from '../Hooks/usePicture.tsx';
 import styles from './Toolbar.module.css';
 
 type ToolbarProps = {
@@ -8,7 +8,7 @@ type ToolbarProps = {
 }
 
 function Toolbar({ presentation }: ToolbarProps) {
-    const { fileInputRef, handleAddPictureClick, handleFileChange } = useAddPicture()
+    const { fileInputRef, handleAddPictureClick, handleBackgroundClick, handleFileChange } = usePicture()
 
     return (
         <header className={styles.toolbar}>
@@ -31,6 +31,11 @@ function Toolbar({ presentation }: ToolbarProps) {
                     className={styles.button}
                     onClick={handleAddPictureClick}>
                     + Картинка
+                </button>
+                <button 
+                    className={styles.button}
+                    onClick={handleBackgroundClick}>
+                    + Картинка на фон
                 </button>
                 <input
                     ref={fileInputRef}
