@@ -91,35 +91,6 @@ function createSlide(): void {
   }))
 }
 
-function createImageObject(): void {
-  dispatch((prev) => {
-    const newImage: ImageObject = {
-      id: generateId(),
-      type: 'image',
-      src: 'https://img.magnific.com/free-photo/close-up-adorable-kitten-looking-up_23-2150782225.jpg?semt=ais_incoming&w=740&q=80',
-      position: { x: 100, y: 100 },
-      size: { width: 300, height: 300 },
-    }
-
-    const updatedSlides = prev.presentation.slides.map((slide) => {
-      if (slide.id === prev.activeSlideID) {
-        return {
-          ...slide,
-          objects: [...slide.objects, newImage],
-        }
-      }
-      return slide
-    })
-
-    return {
-      presentation: {
-        ...prev.presentation,
-        slides: updatedSlides,
-      },
-    }
-  })
-}
-
 function createTextObject(): void {
   dispatch((prev) => {
     const newText: TextObject = {
@@ -164,7 +135,6 @@ export {
   setActiveSlideID,
   getActiveSlideID,
   createSlide,
-  createImageObject,
   createTextObject,
   getWrapperState,
   setWrapperState,

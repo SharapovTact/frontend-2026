@@ -1,13 +1,7 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { dispatch, getActiveSlideID } from '../../editor';
-import { updateTextContent, updateTextObjectStyle } from '../../functions/object';
-import { Font } from '../../types/objects';
+import { getActiveSlideID } from '../../editor';
 import { Presentation } from '../../types/presentation';
-import { Slide } from '../../types/slide';
+import { MAX_FONT_SIZE, MIN_FONT_SIZE, useChangeText } from '../Hooks/useChangeText';
 import styles from './TextStylePanel.module.css';
-
-const MIN_FONT_SIZE = 8;
-const MAX_FONT_SIZE = 200;
 
 type TextStylePanelProps = {
     presentation: Presentation
@@ -20,73 +14,20 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
     const selectedObject = activeSlide && selectedIds.length === 1 ? activeSlide.objects.find(obj => obj.id === selectedIds[0]) : undefined;
     const textObject = selectedObject && selectedObject.type === 'text' ? selectedObject : undefined;
 
-    const [fontFamily, setFontFamily] = useState('Arial');
-    const [fontSize, setFontSize] = useState('16');
-    const [fontColor, setFontColor] = useState('#000000');
-
-    useEffect(() => {
-        if (!textObject) return;
-        setFontFamily(textObject.font.family);
-        setFontSize(String(textObject.font.size));
-        setFontColor(textObject.font.color);
-    }, [textObject?.id]);
+    const {
+        fontFamily,
+        fontSize,
+        fontColor,
+        handleFamilyChange,
+        handleSizeChange,
+        handleColorChange,
+        handleContentChange,
+        changeSize,
+    } = useChangeText({ textObject });
 
     if (!textObject) {
         return null;
     }
-
-    const objectId = textObject.id;
-    const font = textObject.font;
-
-    const updateActiveSlide = (update: (slide: Slide) => Slide) => {
-        dispatch((prev) => ({
-            presentation: {
-                ...prev.presentation,
-                slides: prev.presentation.slides.map((slide) =>
-                    slide.id === prev.activeSlideID ? update(slide) : slide
-                ),
-            },
-        }));
-    };
-
-    const applyFont = (newFont: Font) => {
-        updateActiveSlide((slide) => updateTextObjectStyle(slide, objectId, newFont));
-    };
-
-    const handleFamilyChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        const family = e.target.value;
-        setFontFamily(family);
-        applyFont({ ...font, family });
-    };
-
-    const isValidSize = (size: number) =>
-        Number.isFinite(size) && size >= MIN_FONT_SIZE && size <= MAX_FONT_SIZE;
-
-    const handleSizeChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setFontSize(value);
-        const size = Number(value);
-        if (value !== '' && isValidSize(size)) {
-            applyFont({ ...font, size });
-        }
-    };
-
-    const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const color = e.target.value;
-        setFontColor(color);
-        applyFont({ ...font, color });
-    };
-
-    const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const content = e.target.value;
-        updateActiveSlide((slide) => updateTextContent(slide, objectId, content));
-    };
-
-    const changeSize = (delta: number) => {
-        const size = Math.min(MAX_FONT_SIZE, Math.max(MIN_FONT_SIZE, font.size + delta));
-        setFontSize(String(size));
-        applyFont({ ...font, size });
-    };
 
     return (
         <aside className={styles.panel}>
@@ -110,7 +51,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
                         type="button"
                         className={styles.sizeButton}
                         onClick={() => changeSize(-1)}
-                        disabled={font.size <= MIN_FONT_SIZE}
+                        disabled={textObject.font.size <= MIN_FONT_SIZE}
                     >
                         −
                     </button>
@@ -126,7 +67,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
                         type="button"
                         className={styles.sizeButton}
                         onClick={() => changeSize(1)}
-                        disabled={font.size >= MAX_FONT_SIZE}
+                        disabled={textObject.font.size >= MAX_FONT_SIZE}
                     >
                         +
                     </button>

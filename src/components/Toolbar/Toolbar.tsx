@@ -1,12 +1,15 @@
 import type { Presentation } from '../../types/presentation';
-import { createImageObject, createSlide, createTextObject, getState, setPreviewMode } from '../../editor';
+import { createSlide, createTextObject, setPreviewMode } from '../../editor';
+import { useAddPicture } from '../Hooks/useAddPicture';
 import styles from './Toolbar.module.css';
 
 type ToolbarProps = {
     presentation: Presentation;
-};
+}
 
 function Toolbar({ presentation }: ToolbarProps) {
+    const { fileInputRef, handleAddPictureClick, handleFileChange } = useAddPicture()
+
     return (
         <header className={styles.toolbar}>
             <div className={styles.title}>
@@ -26,9 +29,16 @@ function Toolbar({ presentation }: ToolbarProps) {
                 </button>
                 <button 
                     className={styles.button}
-                    onClick={createImageObject}>
+                    onClick={handleAddPictureClick}>
                     + Картинка
                 </button>
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={handleFileChange}
+                />
                 <button
                     className={`${styles.button} ${styles.primaryButton}`}
                     onClick={() => setPreviewMode(true)}
