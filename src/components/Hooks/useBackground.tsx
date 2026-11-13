@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, useCallback, useRef } from "react"
 import { dispatch } from "../../editor"
 import { Background, GradientBackground, ImageBackground, SolidBackground } from "../../types/slide"
 
@@ -21,8 +21,8 @@ function setSlideBackgroundColor(color: string) {
     setActiveSlideBackground(background)
 }
 
-function setSlideBackgroundGradient(colors: string[], angle: number) {
-    const background: GradientBackground = { type: 'gradient', colors, angle }
+function setSlideBackgroundGradient(gradientType: 'linear' | 'radial', colors: string[], angle: number) {
+    const background: GradientBackground = { type: 'gradient', gradientType, colors, angle }
     setActiveSlideBackground(background)
 }
 
@@ -30,22 +30,30 @@ function clearSlideBackground() {
     setActiveSlideBackground({ type: 'solid', color: '#ffffff' })
 }
 
+function handleColorCommit(e: Event) {
+    const input = e.target as HTMLInputElement
+    setSlideBackgroundColor(input.value)
+}
 
 function useBackground() {
-    const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSlideBackgroundColor(e.target.value)
-    }
+    const colorInputRef = useRef<HTMLInputElement | null>(null)
 
-    const handleGradientApply = (firstColor: string, secondColor: string, angle: number) => {
+    const setColorInputRef = useCallback((input: HTMLInputElement | null) => {
+        colorInputRef.current?.removeEventListener('change', handleColorCommit)
+        colorInputRef.current = input
+        input?.addEventListener('change', handleColorCommit)
+    }, [])
+
+    const handleGradientApply = (gradientType: 'linear' | 'radial', firstColor: string, secondColor: string, angle: number) => {
         const normalizedAngle = Math.min(360, Math.max(0, angle))
-        setSlideBackgroundGradient([firstColor, secondColor], normalizedAngle)
+        setSlideBackgroundGradient(gradientType, [firstColor, secondColor], normalizedAngle)
     }
 
     const handleClearBackground = () => {
         clearSlideBackground()
     }
     return {
-        handleColorChange,
+        setColorInputRef,
         handleGradientApply,
         handleClearBackground,
     }

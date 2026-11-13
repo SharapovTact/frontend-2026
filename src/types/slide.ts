@@ -20,6 +20,7 @@ type ImageBackground = {
 
 type GradientBackground = {
     type: "gradient"
+    gradientType?: "linear" | "radial"
     colors: string[]
     angle?: number
 }

@@ -18,6 +18,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
         fontFamily,
         fontSize,
         fontColor,
+        colorInputRef,
         handleFamilyChange,
         handleSizeChange,
         handleColorChange,
@@ -77,6 +78,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
             <div className={styles.field}>
                 <label className={styles.label}>Цвет:</label>
                 <input
+                    ref={colorInputRef}
                     className={styles.colorInput}
                     type="color"
                     value={fontColor}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { dispatch } from '../../editor'
 import { updateTextContent, updateTextObjectStyle } from '../../functions/object'
 import { Font, TextObject } from '../../types/objects'
@@ -8,7 +8,7 @@ const MIN_FONT_SIZE = 8
 const MAX_FONT_SIZE = 200
 
 type UseChangeTextArgs = {
-    textObject: TextObject | undefined //TODO при изменении цвета - у меня закидывается 
+    textObject: TextObject | undefined //Баг при изменении цвета - у меня закидывается 
                                        //всё сразу в модельку, если водить по градиент-полю
 }
 
@@ -32,6 +32,7 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
     const [fontFamily, setFontFamily] = useState('Arial')
     const [fontSize, setFontSize] = useState('16')
     const [fontColor, setFontColor] = useState('#000000')
+    const colorInputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         if (!textObject) return
@@ -46,6 +47,20 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
         const newFont = { ...textObject.font, ...changes }
         updateActiveSlide((slide) => updateTextObjectStyle(slide, objectId, newFont))
     }
+
+    useEffect(() => {
+        const input = colorInputRef.current
+        if (!input || !textObject) return
+
+        const handleColorCommit = () => {
+            if (input.value !== textObject.font.color) {
+                applyFont({ color: input.value })
+            }
+        }
+
+        input.addEventListener('change', handleColorCommit)
+        return () => input.removeEventListener('change', handleColorCommit)
+    }, [textObject])
 
     const handleFamilyChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const family = e.target.value
@@ -63,9 +78,7 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
     }
 
     const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const color = e.target.value
-        setFontColor(color)
-        applyFont({ color })
+        setFontColor(e.target.value)
     }
 
     const changeSize = (delta: number) => {
@@ -86,6 +99,7 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
         fontFamily,
         fontSize,
         fontColor,
+        colorInputRef,
         handleFamilyChange,
         handleSizeChange,
         handleColorChange,

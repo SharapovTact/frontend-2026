@@ -11,7 +11,7 @@ type BackgroundPanelProps = {
 }
 
 function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
-    const [gradientType, setGradientType] = useState('linear')
+    const [gradientType, setGradientType] = useState<'linear' | 'radial'>('linear')
     const [firstColor, setFirstColor] = useState('#ffffff')
     const [secondColor, setSecondColor] = useState('#000000')
     const [angle, setAngle] = useState(180)
@@ -19,7 +19,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
     const activeSlideID = getActiveSlideID()
     const activeSlide = presentation.slides.find(s => s.id === activeSlideID)
     const { fileInputRef, handleBackgroundClick, handleFileChange } = usePicture()
-    const { handleColorChange, handleGradientApply, handleClearBackground } = useBackground()
+    const { setColorInputRef, handleGradientApply, handleClearBackground } = useBackground()
 
     if (!activeSlide || selectedIds.length > 0) {
         return null
@@ -38,7 +38,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                         className={styles.colorInput}
                         type="color"
                         defaultValue="#ffffff"
-                        onChange={handleColorChange}
+                        ref={setColorInputRef}
                     />
                 </div>
 
@@ -59,7 +59,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                 <div className={styles.gradient}>
                     <span className={styles.label}>Градиент:</span>
                     <select className={styles.select} defaultValue="linear"
-                        onChange={(e) => setGradientType(e.target.value)}>
+                    onChange={(e) => setGradientType(e.target.value as 'linear' | 'radial')}>
                         <option value="linear">Линейный</option>
                         <option value="radial">Радиальный</option>
                     </select>
@@ -77,13 +77,15 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                         onChange={(e) => setAngle(Number(e.target.value))}
                     />
                     <span className={styles.label}>°</span>
-                    <button type="button" className={styles.button}>
+                    <button type="button" className={styles.button}
+                        onClick={() => handleGradientApply(gradientType, firstColor, secondColor, angle)}>
                         Применить
                     </button>
                 </div>
 
                 <div className={styles.field}>
-                    <button type="button" className={`${styles.button} ${styles.dangerButton}`}>
+                    <button type="button" className={`${styles.button} ${styles.dangerButton}`}
+                    onClick={handleClearBackground}>
                         Убрать фон
                     </button>
                 </div>

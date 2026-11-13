@@ -10,7 +10,7 @@ type ResizeInfo = {
     startY: number
     startWidth: number
     startHeight: number
-}//TODO Сделать так, чтобы курсор не менялся при быстром ресайзе
+}//Баг Сделать так, чтобы курсор не менялся при быстром ресайзе
 
 type UseResizeArgs = {
     activeSlide: Slide | undefined

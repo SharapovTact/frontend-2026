@@ -24,10 +24,14 @@ function SlidePreview({ slide, selectedIds = [], onObjectMouseDown, onResizeMous
             backgroundStyle.backgroundRepeat = 'no-repeat'
             break
         case 'gradient': {
-            const angle = background.angle ?? 180;
-            const colors = background.colors.join(', ');
-            backgroundStyle.backgroundImage = `linear-gradient(${angle}deg, ${colors})`;
-            break;
+            const colors = background.colors.join(', ')
+            if (background.gradientType === 'radial') {
+                backgroundStyle.backgroundImage = `radial-gradient(circle, ${colors})`
+            } else {
+                const angle = background.angle ?? 180
+                backgroundStyle.backgroundImage = `linear-gradient(${angle}deg, ${colors})`
+            }
+            break
         }
     }
 
