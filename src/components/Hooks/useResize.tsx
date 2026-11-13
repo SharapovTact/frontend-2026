@@ -21,7 +21,7 @@ function useResize({ activeSlide, selectedIds }: UseResizeArgs) {
     const resizeRef = useRef<ResizeInfo | null>(null)
     const [sizeDelta, setSizeDelta] = useState({ width: 0, height: 0 })
 
-    const handleResizeMouseDown = (e: React.MouseEvent, objectId: string) => {
+    const handleResizeMouseDown = (e: React.MouseEvent, objectId: string) => { //TODO если вести влево-вверх, то баг
         if (e.defaultPrevented) {
             return
         }

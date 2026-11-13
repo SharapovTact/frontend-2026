@@ -59,7 +59,6 @@ function usePicture() {
 
     const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        e.target.value = ''
 
         if (!file || !file.type.startsWith('image/')) {
             return

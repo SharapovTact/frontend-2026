@@ -8,7 +8,8 @@ const MIN_FONT_SIZE = 8
 const MAX_FONT_SIZE = 200
 
 type UseChangeTextArgs = {
-    textObject: TextObject | undefined
+    textObject: TextObject | undefined //TODO при изменении цвета - у меня закидывается 
+                                       //всё сразу в модельку, если водить по градиент-полю
 }
 
 function isValidSize(size: number): boolean {
@@ -21,7 +22,6 @@ function updateActiveSlide(update: (slide: Slide) => Slide) {
         if (slideIndex === -1) return {}
 
         const updatedSlide = update(prev.presentation.slides[slideIndex])
-
         const updatedSlides = [...prev.presentation.slides]
         updatedSlides[slideIndex] = updatedSlide
         return { presentation: { ...prev.presentation, slides: updatedSlides } }

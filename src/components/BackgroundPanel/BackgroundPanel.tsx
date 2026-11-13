@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { getActiveSlideID } from '../../editor';
 import { Presentation } from '../../types/presentation';
+import { useBackground } from '../Hooks/useBackground';
+import { usePicture } from '../Hooks/usePicture';
 import styles from './BackgroundPanel.module.css';
 
 type BackgroundPanelProps = {
@@ -8,8 +11,15 @@ type BackgroundPanelProps = {
 }
 
 function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
+    const [gradientType, setGradientType] = useState('linear')
+    const [firstColor, setFirstColor] = useState('#ffffff')
+    const [secondColor, setSecondColor] = useState('#000000')
+    const [angle, setAngle] = useState(180)
+
     const activeSlideID = getActiveSlideID()
     const activeSlide = presentation.slides.find(s => s.id === activeSlideID)
+    const { fileInputRef, handleBackgroundClick, handleFileChange } = usePicture()
+    const { handleColorChange, handleGradientApply, handleClearBackground } = useBackground()
 
     if (!activeSlide || selectedIds.length > 0) {
         return null
@@ -28,28 +38,35 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                         className={styles.colorInput}
                         type="color"
                         defaultValue="#ffffff"
+                        onChange={handleColorChange}
                     />
                 </div>
 
                 <div className={styles.field}>
-                    <button type="button" className={styles.button}>
+                    <button type="button" className={styles.button}
+                        onClick={handleBackgroundClick}>
                         Добавить фоновое изображение
                     </button>
                     <input
                         type="file"
                         accept="image/*"
                         hidden
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
                     />
                 </div>
 
                 <div className={styles.gradient}>
                     <span className={styles.label}>Градиент:</span>
-                    <select className={styles.select} defaultValue="linear">
+                    <select className={styles.select} defaultValue="linear"
+                        onChange={(e) => setGradientType(e.target.value)}>
                         <option value="linear">Линейный</option>
                         <option value="radial">Радиальный</option>
                     </select>
-                    <input className={styles.colorInput} type="color" defaultValue="#ffffff" />
-                    <input className={styles.colorInput} type="color" defaultValue="#000000" />
+                    <input className={styles.colorInput} type="color" defaultValue="#ffffff"
+                        onChange={(e) => setFirstColor(e.target.value)} />
+                    <input className={styles.colorInput} type="color" defaultValue="#000000"
+                        onChange={(e) => setSecondColor(e.target.value)} />
                     <label className={styles.label}>Угол:</label>
                     <input
                         className={styles.angleInput}
@@ -57,6 +74,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                         min={0}
                         max={360}
                         defaultValue={180}
+                        onChange={(e) => setAngle(Number(e.target.value))}
                     />
                     <span className={styles.label}>°</span>
                     <button type="button" className={styles.button}>

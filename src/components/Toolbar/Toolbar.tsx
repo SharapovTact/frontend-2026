@@ -8,7 +8,7 @@ type ToolbarProps = {
 }
 
 function Toolbar({ presentation }: ToolbarProps) {
-    const { fileInputRef, handleAddPictureClick, handleBackgroundClick, handleFileChange } = usePicture()
+    const { fileInputRef, handleAddPictureClick, handleFileChange } = usePicture()
 
     return (
         <header className={styles.toolbar}>
@@ -31,11 +31,6 @@ function Toolbar({ presentation }: ToolbarProps) {
                     className={styles.button}
                     onClick={handleAddPictureClick}>
                     + Картинка
-                </button>
-                <button 
-                    className={styles.button}
-                    onClick={handleBackgroundClick}>
-                    + Картинка на фон
                 </button>
                 <input
                     ref={fileInputRef}
