@@ -50,9 +50,8 @@ function Workspace({ presentation }: WorkspaceProps) {
     }
 
     return (
-        <main className={styles.workspace} 
-            onMouseDown={handleCanvasMouseDown}
-            style={{ cursor: isResizing ? 'nwse-resize' : undefined }}>
+        <main className={`${styles.workspace}${isResizing ? ` ${styles.resizing}` : ''}`}
+            onMouseDown={handleCanvasMouseDown}>
             <div className={styles.slideWrapper}>
                 <SlidePreview
                     slide={displaySlide}

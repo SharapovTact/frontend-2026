@@ -10,7 +10,7 @@ type ResizeInfo = {
     startY: number
     startWidth: number
     startHeight: number
-}//Баг Сделать так, чтобы курсор не менялся при быстром ресайзе
+}
 
 type UseResizeArgs = {
     activeSlide: Slide | undefined
@@ -21,7 +21,7 @@ function useResize({ activeSlide, selectedIds }: UseResizeArgs) {
     const resizeRef = useRef<ResizeInfo | null>(null)
     const [sizeDelta, setSizeDelta] = useState({ width: 0, height: 0 })
 
-    const handleResizeMouseDown = (e: React.MouseEvent, objectId: string) => { //TODO если вести влево-вверх, то баг
+    const handleResizeMouseDown = (e: React.MouseEvent, objectId: string) => {
         if (e.defaultPrevented) {
             return
         }

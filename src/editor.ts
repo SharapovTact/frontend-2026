@@ -75,7 +75,7 @@ function getWrapperState(): boolean {
   return viewModel.isWrapping
 }
 function setWrapperState(isWrapping: boolean): void {
-  viewModel.isWrapping = isWrapping
+  dispatch(() => ({ isWrapping }))
 }
 
 function getSelectedSlideObjectsIds(): string[] {
