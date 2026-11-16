@@ -2,6 +2,7 @@ import type { Presentation } from '../../types/presentation';
 import { createSlide, createTextObject, setPreviewMode } from '../../editor';
 import { usePicture } from '../Hooks/usePicture.tsx';
 import styles from './Toolbar.module.css';
+import { usePdfExport } from '../Hooks/usePdfExport.tsx';
 
 type ToolbarProps = {
     presentation: Presentation;
@@ -12,6 +13,7 @@ type ToolbarProps = {
 }
 function Toolbar({ presentation, canUndo, canRedo, onUndo, onRedo }: ToolbarProps) {
     const { fileInputRef, handleAddPictureClick, handleFileChange } = usePicture()
+    const { exportToPdf } = usePdfExport()
 
     return (
         <header className={styles.toolbar}>
@@ -54,6 +56,11 @@ function Toolbar({ presentation, canUndo, canRedo, onUndo, onRedo }: ToolbarProp
                     hidden
                     onChange={handleFileChange}
                 />
+                <button
+                    className={styles.button}
+                    onClick={() => exportToPdf(presentation)}>
+                    Экспорт PDF
+                </button>
                 <button
                     className={`${styles.button} ${styles.primaryButton}`}
                     onClick={() => setPreviewMode(true)}

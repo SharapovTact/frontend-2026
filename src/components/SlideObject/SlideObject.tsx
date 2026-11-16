@@ -37,10 +37,9 @@ function SlideObject({ object, isSelected = false, onMouseDown, onResizeMouseDow
         }
         if (object.type === 'image') {
             return (
-                <img
-                    src={object.src}
-                    alt=""
+                <div
                     className={styles.imageObject}
+                    style={{ backgroundImage: `url("${object.src}")` }}
                 />
             )
         }
