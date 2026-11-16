@@ -5,9 +5,12 @@ import styles from './Toolbar.module.css';
 
 type ToolbarProps = {
     presentation: Presentation;
+    canUndo: boolean
+    canRedo: boolean
+    onUndo: () => void
+    onRedo: () => void
 }
-
-function Toolbar({ presentation }: ToolbarProps) {
+function Toolbar({ presentation, canUndo, canRedo, onUndo, onRedo }: ToolbarProps) {
     const { fileInputRef, handleAddPictureClick, handleFileChange } = usePicture()
 
     return (
@@ -17,6 +20,18 @@ function Toolbar({ presentation }: ToolbarProps) {
             </div>
 
             <div className={styles.actions}>
+                <button
+                    className={styles.button}
+                    onClick={onUndo}
+                    disabled={!canUndo}>
+                    ↩ Отменить
+                </button>
+                <button
+                    className={styles.button}
+                    onClick={onRedo}
+                    disabled={!canRedo}>
+                    ↪ Повторить
+                </button>
                 <button
                     className={styles.button}
                     onClick={createSlide}>

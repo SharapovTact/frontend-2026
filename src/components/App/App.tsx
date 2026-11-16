@@ -8,11 +8,13 @@ import { Toolbar } from "../Toolbar/Toolbar"
 import { Workspace } from "../Workspace/Workspace"
 import { TextStylePanel } from "../TextStylePanel/TextStylePanel";
 import { BackgroundPanel } from "../BackgroundPanel/BackgroundPanel";
+import { useHistoryUI } from "../Hooks/useHistoryUI";
 
 type AppProps = {
     presentation: Presentation
 }
 function App({ presentation }: AppProps) {
+    const { canUndo, canRedo, onUndo, onRedo } = useHistoryUI()
     if (getPreviewMode()) {
         return (
             <PreviewOverlay
@@ -23,7 +25,11 @@ function App({ presentation }: AppProps) {
     }
     return (
         <div className={styles.appContainer}>
-            <Toolbar presentation={presentation} />
+            <Toolbar presentation={presentation} 
+                canUndo={canUndo}
+                canRedo={canRedo}
+                onUndo={onUndo}
+                onRedo={onRedo}/>
             <div className={styles.mainArea}>
                 <SlideList presentation={presentation} />
                 <Workspace presentation={presentation} />

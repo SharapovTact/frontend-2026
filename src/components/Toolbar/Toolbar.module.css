@@ -45,3 +45,9 @@
     background-color: #1d4ed8;
     border-color: #1d4ed8;
 }
+
+.button:disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
