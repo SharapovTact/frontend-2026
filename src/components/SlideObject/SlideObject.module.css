@@ -35,3 +35,20 @@
     background-position: center;
     border: none;   
 }
+
+.textEditor {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    background: transparent;
+    line-height: normal;
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: text;
+}

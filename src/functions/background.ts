@@ -14,10 +14,15 @@ function setSlideBackgroundImage(slide: Slide, imageUrl: string): Slide {
     }
 }
 
-function setSlideBackgroundGradient(slide: Slide, colors: string[], angle?: number): Slide {
+function setSlideBackgroundGradient(
+    slide: Slide,
+    colors: string[],
+    angle?: number,
+    gradientType?: 'linear' | 'radial',
+): Slide {
     return {
         ...slide,
-        background: {type: 'gradient', colors: [...colors], angle }
+        background: { type: 'gradient', colors: [...colors], angle, gradientType }
     }
 }
 

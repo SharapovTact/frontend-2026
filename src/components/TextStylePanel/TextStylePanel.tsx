@@ -15,6 +15,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
     const textObject = selectedObject && selectedObject.type === 'text' ? selectedObject : undefined;
 
     const {
+        displaySlide,
         fontFamily,
         fontSize,
         fontColor,
@@ -22,9 +23,8 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
         handleFamilyChange,
         handleSizeChange,
         handleColorChange,
-        handleContentChange,
         changeSize,
-    } = useChangeText({ textObject });
+    } = useChangeText({ textObject, activeSlide });
 
     if (!textObject) {
         return null;
@@ -83,15 +83,6 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
                     type="color"
                     value={fontColor}
                     onChange={handleColorChange}
-                />
-            </div>
-            <div className={styles.field}>
-                <label className={styles.label}>Текст:</label>
-                <textarea
-                    className={styles.textArea}
-                    value={textObject.content}
-                    onChange={handleContentChange}
-                    rows={3}
                 />
             </div>
         </aside>

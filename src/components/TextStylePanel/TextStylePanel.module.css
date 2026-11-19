@@ -83,3 +83,19 @@
     opacity: 0.4;
     cursor: default;
 }
+
+.panel {
+    width: 700px;
+    padding: 16px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

@@ -47,4 +47,4 @@ function useDelete({ selectedIds, clearSelection }: UseDeleteArgs) {
     }, [selectedIds, clearSelection])
 }
 
-export {useDelete}
+export {useDelete, isTypingTarget}

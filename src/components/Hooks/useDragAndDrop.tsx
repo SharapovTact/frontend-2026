@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { dispatch } from '../../editor'
 import { moveObject } from '../../functions/object'
 import { Slide } from '../../types/slide'
+import { isTypingTarget } from './useDelete'
 
 type DragInfo = {
     startX: number
@@ -68,6 +69,7 @@ function useDragAndDrop({ activeSlide, selectedIds, setSelectedIds }: UseDragAnd
     const handleObjectMouseDown = (e: React.MouseEvent, objectId: string) => {
         if (!activeSlide) return
         if (e.defaultPrevented) return
+        if (isTypingTarget(e.target)) return
         e.preventDefault()
 
         let currentSelected = selectedIds

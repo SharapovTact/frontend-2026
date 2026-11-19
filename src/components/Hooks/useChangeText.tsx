@@ -8,8 +8,8 @@ const MIN_FONT_SIZE = 8
 const MAX_FONT_SIZE = 200
 
 type UseChangeTextArgs = {
-    textObject: TextObject | undefined //Баг при изменении цвета - у меня закидывается 
-                                       //всё сразу в модельку, если водить по градиент-полю
+    textObject: TextObject | undefined
+    activeSlide: Slide | undefined
 }
 
 function isValidSize(size: number): boolean {
@@ -28,7 +28,7 @@ function updateActiveSlide(update: (slide: Slide) => Slide) {
     })
 }
 
-function useChangeText({ textObject }: UseChangeTextArgs) {
+function useChangeText({ textObject, activeSlide }: UseChangeTextArgs) {
     const [fontFamily, setFontFamily] = useState('Arial')
     const [fontSize, setFontSize] = useState('16')
     const [fontColor, setFontColor] = useState('#000000')
@@ -95,7 +95,24 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
         updateActiveSlide((slide) => updateTextContent(slide, objectId, content))
     }
 
+    let displaySlide = activeSlide
+    if (activeSlide && textObject) {
+        displaySlide = {
+            ...activeSlide,
+            objects: activeSlide.objects.map((obj) => {
+                if (obj.id !== textObject.id) return obj
+                if ('font' in obj) {
+                    return {
+                        ...obj,
+                        font: { ...obj.font, color: fontColor },
+                    }
+                }
+                return obj
+            }),
+        }
+    }
     return {
+        displaySlide,
         fontFamily,
         fontSize,
         fontColor,
@@ -108,4 +125,4 @@ function useChangeText({ textObject }: UseChangeTextArgs) {
     }
 }
 
-export { useChangeText, MIN_FONT_SIZE, MAX_FONT_SIZE }
+export { useChangeText, updateActiveSlide, MIN_FONT_SIZE, MAX_FONT_SIZE }

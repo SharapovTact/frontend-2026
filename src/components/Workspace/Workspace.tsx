@@ -4,7 +4,7 @@ import type { Presentation } from '../../types/presentation';
 import { SlidePreview } from '../SlidePreview/SlidePreview';
 import styles from './Workspace.module.css';
 import { useDragAndDrop } from '../Hooks/useDragAndDrop';
-import { useDelete } from '../Hooks/useDelete';
+import { isTypingTarget, useDelete } from '../Hooks/useDelete';
 import { useSelect } from '../Hooks/useSelect';
 import { useResize } from '../Hooks/useResize';
 
@@ -38,6 +38,7 @@ function Workspace({ presentation }: WorkspaceProps) {
 
     const handleCanvasMouseDown = (e: React.MouseEvent) => {
         if (e.defaultPrevented) return
+        if (isTypingTarget(e.target)) return
         clearSelection()
     }
 

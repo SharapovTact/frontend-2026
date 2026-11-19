@@ -1,13 +1,14 @@
-import { ChangeEvent, useCallback, useRef } from "react"
+import { useCallback, useRef } from "react"
 import { dispatch } from "../../editor"
-import { Background, GradientBackground, ImageBackground, SolidBackground } from "../../types/slide"
+import { clearSlideBackground, setSlideBackgroundColor, setSlideBackgroundGradient } from "../../functions/background"
+import { Slide } from "../../types/slide"
 
-function setActiveSlideBackground(background: Background) {
+function updateActiveSlide(update: (slide: Slide) => Slide) {
     dispatch((prev) => {
         const slideIndex = prev.presentation.slides.findIndex(s => s.id === prev.activeSlideID)
         if (slideIndex === -1) return {}
 
-        const updatedSlide = { ...prev.presentation.slides[slideIndex], background }
+        const updatedSlide = update(prev.presentation.slides[slideIndex])
 
         const updatedSlides = [...prev.presentation.slides]
         updatedSlides[slideIndex] = updatedSlide
@@ -15,24 +16,9 @@ function setActiveSlideBackground(background: Background) {
     })
 }
 
-
-function setSlideBackgroundColor(color: string) {
-    const background: SolidBackground = { type: 'solid', color }
-    setActiveSlideBackground(background)
-}
-
-function setSlideBackgroundGradient(gradientType: 'linear' | 'radial', colors: string[], angle: number) {
-    const background: GradientBackground = { type: 'gradient', gradientType, colors, angle }
-    setActiveSlideBackground(background)
-}
-
-function clearSlideBackground() {
-    setActiveSlideBackground({ type: 'solid', color: '#ffffff' })
-}
-
 function handleColorCommit(e: Event) {
-    const input = e.target as HTMLInputElement
-    setSlideBackgroundColor(input.value)
+    const color = (e.target as HTMLInputElement).value
+    updateActiveSlide((slide) => setSlideBackgroundColor(slide, color))
 }
 
 function useBackground() {
@@ -46,12 +32,15 @@ function useBackground() {
 
     const handleGradientApply = (gradientType: 'linear' | 'radial', firstColor: string, secondColor: string, angle: number) => {
         const normalizedAngle = Math.min(360, Math.max(0, angle))
-        setSlideBackgroundGradient(gradientType, [firstColor, secondColor], normalizedAngle)
+        updateActiveSlide((slide) =>
+            setSlideBackgroundGradient(slide, [firstColor, secondColor], normalizedAngle, gradientType)
+        )
     }
 
     const handleClearBackground = () => {
-        clearSlideBackground()
+        updateActiveSlide(clearSlideBackground)
     }
+
     return {
         setColorInputRef,
         handleGradientApply,
@@ -59,4 +48,4 @@ function useBackground() {
     }
 }
 
-export {useBackground}
+export { useBackground }
