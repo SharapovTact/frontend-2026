@@ -9,7 +9,6 @@ const MAX_FONT_SIZE = 200
 
 type UseChangeTextArgs = {
     textObject: TextObject | undefined
-    activeSlide: Slide | undefined
 }
 
 function isValidSize(size: number): boolean {
@@ -28,7 +27,7 @@ function updateActiveSlide(update: (slide: Slide) => Slide) {
     })
 }
 
-function useChangeText({ textObject, activeSlide }: UseChangeTextArgs) {
+function useChangeText({ textObject }: UseChangeTextArgs) {
     const [fontFamily, setFontFamily] = useState('Arial')
     const [fontSize, setFontSize] = useState('16')
     const [fontColor, setFontColor] = useState('#000000')
@@ -78,7 +77,13 @@ function useChangeText({ textObject, activeSlide }: UseChangeTextArgs) {
     }
 
     const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFontColor(e.target.value)
+        const color = e.target.value
+        setFontColor(color)
+        if (!textObject) return
+
+        document.querySelectorAll<HTMLElement>(`[data-text-id="${textObject.id}"]`).forEach((element) => {
+            element.style.color = color
+        })
     }
 
     const changeSize = (delta: number) => {
@@ -95,24 +100,7 @@ function useChangeText({ textObject, activeSlide }: UseChangeTextArgs) {
         updateActiveSlide((slide) => updateTextContent(slide, objectId, content))
     }
 
-    let displaySlide = activeSlide
-    if (activeSlide && textObject) {
-        displaySlide = {
-            ...activeSlide,
-            objects: activeSlide.objects.map((obj) => {
-                if (obj.id !== textObject.id) return obj
-                if ('font' in obj) {
-                    return {
-                        ...obj,
-                        font: { ...obj.font, color: fontColor },
-                    }
-                }
-                return obj
-            }),
-        }
-    }
     return {
-        displaySlide,
         fontFamily,
         fontSize,
         fontColor,

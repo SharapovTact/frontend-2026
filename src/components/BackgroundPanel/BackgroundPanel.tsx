@@ -19,7 +19,13 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
     const activeSlideID = getActiveSlideID()
     const activeSlide = presentation.slides.find(s => s.id === activeSlideID)
     const { fileInputRef, handleBackgroundClick, handleFileChange } = usePicture()
-    const { setColorInputRef, handleGradientApply, handleClearBackground } = useBackground()
+    const {
+        backgroundColor,
+        colorInputRef,
+        handleColorChange,
+        handleGradientApply,
+        handleClearBackground,
+    } = useBackground({ slide: selectedIds.length === 0 ? activeSlide : undefined })
 
     if (!activeSlide || selectedIds.length > 0) {
         return null
@@ -35,10 +41,11 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                 <div className={styles.field}>
                     <label className={styles.label}>Цвет:</label>
                     <input
+                        ref={colorInputRef}
                         className={styles.colorInput}
                         type="color"
-                        defaultValue="#ffffff"
-                        ref={setColorInputRef}
+                        value={backgroundColor}
+                        onChange={handleColorChange}
                     />
                 </div>
 
@@ -59,7 +66,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
                 <div className={styles.gradient}>
                     <span className={styles.label}>Градиент:</span>
                     <select className={styles.select} defaultValue="linear"
-                    onChange={(e) => setGradientType(e.target.value as 'linear' | 'radial')}>
+                        onChange={(e) => setGradientType(e.target.value as 'linear' | 'radial')}>
                         <option value="linear">Линейный</option>
                         <option value="radial">Радиальный</option>
                     </select>
@@ -85,7 +92,7 @@ function BackgroundPanel({ presentation, selectedIds }: BackgroundPanelProps) {
 
                 <div className={styles.field}>
                     <button type="button" className={`${styles.button} ${styles.dangerButton}`}
-                    onClick={handleClearBackground}>
+                        onClick={handleClearBackground}>
                         Убрать фон
                     </button>
                 </div>

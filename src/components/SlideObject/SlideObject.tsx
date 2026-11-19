@@ -48,6 +48,7 @@ function SlideObject({ object, isSelected = false, onMouseDown, onResizeMouseDow
             if (isEditing) {
                 return (
                     <textarea
+                        data-text-id={object.id}
                         className={styles.textEditor}
                         style={fontStyle}
                         defaultValue={object.content}
@@ -63,7 +64,7 @@ function SlideObject({ object, isSelected = false, onMouseDown, onResizeMouseDow
             }
 
             return (
-                <div className={styles.textObject} style={fontStyle}>
+                <div data-text-id={object.id} className={styles.textObject} style={fontStyle}>
                     {object.content}
                 </div>
             )

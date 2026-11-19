@@ -15,7 +15,6 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
     const textObject = selectedObject && selectedObject.type === 'text' ? selectedObject : undefined;
 
     const {
-        displaySlide,
         fontFamily,
         fontSize,
         fontColor,
@@ -24,7 +23,7 @@ function TextStylePanel({ presentation, selectedIds }: TextStylePanelProps) {
         handleSizeChange,
         handleColorChange,
         changeSize,
-    } = useChangeText({ textObject, activeSlide });
+    } = useChangeText({ textObject });
 
     if (!textObject) {
         return null;

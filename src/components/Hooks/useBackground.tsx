@@ -1,7 +1,11 @@
-import { useCallback, useRef } from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { dispatch } from "../../editor"
 import { clearSlideBackground, setSlideBackgroundColor, setSlideBackgroundGradient } from "../../functions/background"
 import { Slide } from "../../types/slide"
+
+type UseBackgroundArgs = {
+    slide: Slide | undefined
+}
 
 function updateActiveSlide(update: (slide: Slide) => Slide) {
     dispatch((prev) => {
@@ -16,24 +20,48 @@ function updateActiveSlide(update: (slide: Slide) => Slide) {
     })
 }
 
-function handleColorCommit(e: Event) {
-    const color = (e.target as HTMLInputElement).value
-    updateActiveSlide((slide) => setSlideBackgroundColor(slide, color))
+function getSlideColor(slide: Slide): string {
+    return slide.background.type === 'solid' ? slide.background.color : '#ffffff'
 }
 
-function useBackground() {
-    const colorInputRef = useRef<HTMLInputElement | null>(null)
+function useBackground({ slide }: UseBackgroundArgs) {
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
+    const colorInputRef = useRef<HTMLInputElement>(null)
 
-    const setColorInputRef = useCallback((input: HTMLInputElement | null) => {
-        colorInputRef.current?.removeEventListener('change', handleColorCommit)
-        colorInputRef.current = input
-        input?.addEventListener('change', handleColorCommit)
-    }, [])
+    useEffect(() => {
+        if (!slide) return
+        setBackgroundColor(getSlideColor(slide))
+    }, [slide?.id])
+
+    useEffect(() => {
+        const input = colorInputRef.current
+        if (!input || !slide) return
+
+        const handleColorCommit = () => {
+            const color = input.value
+            if (slide.background.type !== 'solid' || color !== slide.background.color) {
+                updateActiveSlide((s) => setSlideBackgroundColor(s, color))
+            }
+        }
+
+        input.addEventListener('change', handleColorCommit)
+        return () => input.removeEventListener('change', handleColorCommit)
+    }, [slide])
+
+    const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const color = e.target.value
+        setBackgroundColor(color)
+        if (!slide) return
+
+        document.querySelectorAll<HTMLElement>(`[data-slide-id="${slide.id}"]`).forEach((element) => {
+            element.style.background = color
+        })
+    }
 
     const handleGradientApply = (gradientType: 'linear' | 'radial', firstColor: string, secondColor: string, angle: number) => {
         const normalizedAngle = Math.min(360, Math.max(0, angle))
-        updateActiveSlide((slide) =>
-            setSlideBackgroundGradient(slide, [firstColor, secondColor], normalizedAngle, gradientType)
+        updateActiveSlide((s) =>
+            setSlideBackgroundGradient(s, [firstColor, secondColor], normalizedAngle, gradientType)
         )
     }
 
@@ -42,7 +70,9 @@ function useBackground() {
     }
 
     return {
-        setColorInputRef,
+        backgroundColor,
+        colorInputRef,
+        handleColorChange,
         handleGradientApply,
         handleClearBackground,
     }

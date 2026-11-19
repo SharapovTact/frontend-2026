@@ -36,7 +36,7 @@ function SlidePreview({ slide, selectedIds = [], onObjectMouseDown, onResizeMous
     }
 
     return (
-        <div className={styles.slide} style={backgroundStyle}>
+        <div className={styles.slide} style={backgroundStyle} data-slide-id={slide.id}>
             {slide.objects.map((object) => (
                 <SlideObject
                     key={object.id}
